@@ -10,11 +10,95 @@
 
 .ec-header__wrapper {
     display: grid;
-    grid-template-columns: auto 1fr auto;
-    gap: 1rem;
     align-items: center;
+    grid-template-areas: "heading info actions";
+    grid-template-columns: auto 1fr auto;
+    column-gap: 2rem;
+}
+
+.ec-header__toggler {
+    grid-area: toggler;
+}
+
+.ec-header__logo {
+    grid-area: heading;
 }
 
 .ec-header__info {
+    grid-area: info;
     text-align: center;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.ec-header__actions {
+    grid-area: actions;
+}
+
+
+
+/* MENU DRAWER */
+.ec-header__toggler {
+    width: 30px;
+    height: 22px;
+    position: relative;
+    transform: rotate(0);
+    transition: all 0.5s ease-in-out;
+    cursor: pointer;
+    box-shadow: none;
+    border: 0;
+    outline: none;
+    z-index: 25;
+}
+
+@media (min-width: 991px){
+    .ec-header__toggler {
+        display: none;
+    }
+}
+
+.ec-header__toggler .bar {
+    display: block;
+    left: 0;
+    position: absolute;
+    transform: rotate(0);
+    transition: all 0.25s ease-in-out;
+    width: 100%;
+    height: 2px;
+    background-color: rgba(var(--color-foreground), 1); /* Assuming bg-dark refers to a dark color */
+    opacity: 1;
+    border-radius: 9px;
+}
+
+.ec-header__toggler .bar:nth-child(1) {
+    top: 0;
+}
+
+.ec-header__toggler .bar:nth-child(2),
+.ec-header__toggler .bar:nth-child(3) {
+    top: 10px;
+}
+
+.ec-header__toggler .bar:nth-child(4) {
+    top: 20px;
+}
+
+.open-drawer .ec-header__toggler .bar:nth-child(1) {
+    top: 12px;
+    width: 0;
+    left: 50%; /* Assuming start-1/2 refers to left: 50% */
+}
+
+.open-drawer .ec-header__toggler .bar:nth-child(2) {
+    transform: rotate(45deg);
+}
+
+.open-drawer .ec-header__toggler .bar:nth-child(3) {
+    transform: rotate(-45deg);
+}
+
+.open-drawer .ec-header__toggler .bar:nth-child(4) {
+    top: 12px;
+    width: 0;
+    left: 50%; /* Assuming start-1/2 refers to left: 50% */
 }

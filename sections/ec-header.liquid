@@ -17,6 +17,14 @@
 <div class="ec-header color-{{ section.settings.color_scheme }} section-{{ section.id }}-padding">
     <div class="ec-page-width">
       <div class="ec-header__wrapper">
+        {% comment %} Toggler {% endcomment %}
+          <button class="ec-header__toggler">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </button>
+        
         {% comment %} LOGO {% endcomment %}
         <div class="ec-header__logo">
             {%- if section.settings.logo != blank -%}
