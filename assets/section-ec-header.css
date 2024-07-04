@@ -1,3 +1,8 @@
+.ec-header__heading-logo {
+    height: auto;
+    max-width: 100%;
+}
+
 .ec-header{
-    background-color: #F5F5F5;
+
 }

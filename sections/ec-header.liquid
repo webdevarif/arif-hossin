@@ -25,7 +25,7 @@
                 {% capture sizes %}(max-width: {{ section.settings.logo_width | times: 2 }}px) 50vw, {{ section.settings.logo_width }}px{% endcapture %}
                 {% capture widths %}{{ section.settings.logo_width }}, {{ section.settings.logo_width | times: 1.5 | round }}, {{ section.settings.logo_width | times: 2 }}{% endcapture %}
                 {{ section.settings.logo | image_url: width: 600 | image_tag:
-                  class: 'header__heading-logo motion-reduce',
+                  class: 'ec-header__heading-logo',
                   widths: widths,
                   height: logo_height,
                   width: section.settings.logo_width,
