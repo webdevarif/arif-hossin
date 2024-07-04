@@ -14,7 +14,7 @@
 }
 {%- endstyle -%}
 
-{%- if section.settings.desktop_image_height_height == 'adapt' and section.settings.desktop_image != blank -%}
+{%- if section.settings.desktop_image_height == 'adapt' and section.settings.desktop_image != blank -%}
     {%- style -%}  
       @media screen and (min-width: 750px) {
         #Banner-{{ section.id }}::before,
