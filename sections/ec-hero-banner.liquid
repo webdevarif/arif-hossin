@@ -1,0 +1,45 @@
+{{ 'section-ec-hero-banner.css' | asset_url | stylesheet_tag }}
+
+
+{%- style -%}
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+      padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+    }
+  
+    @media screen and (min-width: 750px) {
+      .section-{{ section.id }}-padding {
+        padding-top: {{ section.settings.padding_top }}px;
+        padding-bottom: {{ section.settings.padding_bottom }}px;
+      }
+    }
+  {%- endstyle -%}
+
+
+<div class="ec-hero-banner color-{{ section.settings.color_scheme }} section-{{ section.id }}-padding">
+  <div class="ec-page-width">
+    <div class="ec-hero-banner__content">
+        <h1>The Gift Guide</h1>
+        <p>Discover Joy: Your Ultimate Holiday Gift Destination. Explore our curated selection and find the perfect gifts to delight your loved ones this holiday season.</p>
+        <a href="#" class="ec-button__primary">
+            Shop Now
+        </a>
+    </div>
+  </div>
+</div>
+{% schema %}
+    {
+        "name": "Hero Banner (EC)",
+        "class": "section",
+        "disabled_on": {
+            "groups": ["header", "footer"]
+        },
+        "settings": [],
+        "blocks": [],
+        "presets": [
+            {
+                "name": "Hero Banner(EC)"
+            }
+        ]
+    }
+{% endschema %}

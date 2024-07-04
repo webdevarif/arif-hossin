@@ -2,15 +2,8 @@
 
 {%- style -%}
   .section-{{ section.id }}-padding {
-    padding-top: {{ section.settings.padding_top | times: 1 | round: 0 }}px;
-    padding-bottom: {{ section.settings.padding_bottom | times: 1 | round: 0 }}px;
-  }
-
-  @media screen and (min-width: 750px) {
-    .section-{{ section.id }}-padding {
-      padding-top: {{ section.settings.padding_top }}px;
-      padding-bottom: {{ section.settings.padding_bottom }}px;
-    }
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
   }
 {%- endstyle -%}
 
@@ -73,7 +66,8 @@
         </div>
       </div>
     </div>
-
+      
+    {% comment %} MOBILE DRAWER {% endcomment %}
     <div class="ec-header__drawer">
       <div class="ec-header__drawer-wrapper color-{{ section.settings.drawer_color_scheme }}">
           {% comment %} Info {% endcomment %}
@@ -109,24 +103,23 @@
 {% javascript %}
   class ECHeader extends HTMLElement {
     constructor() {
-        super();
+      super();
     }
 
     connectedCallback() {
-        this.mobileDrawerToggle = this.querySelector('.ec-header__toggler');
-        if (this.mobileDrawerToggle) {
-            this.mobileDrawerToggle.addEventListener('click', this.toggleModal.bind(this));
-        }
+      this.mobileDrawerToggle = this.querySelector('.ec-header__toggler');
+      if (this.mobileDrawerToggle) {
+        this.mobileDrawerToggle.addEventListener('click', this.toggleModal.bind(this));
+      }
     }
 
     disconnectedCallback() {
-        if (this.mobileDrawerToggle) {
-            this.mobileDrawerToggle.removeEventListener('click', this.toggleModal.bind(this));
-        }
+      if (this.mobileDrawerToggle) {
+        this.mobileDrawerToggle.removeEventListener('click', this.toggleModal.bind(this));
+      }
     }
-
     toggleModal() {
-        document.body.classList.toggle('open-drawer');
+      document.body.classList.toggle('open-drawer');
     }
 }
 customElements.define('ec-header', ECHeader);

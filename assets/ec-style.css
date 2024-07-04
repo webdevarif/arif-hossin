@@ -37,8 +37,8 @@ body{
     text-decoration: none;
     -webkit-appearance: none;
     appearance: none;
-    background-color: #FFF544;
-    color: #000000;
+    color: rgb(var(--color-button-text));
+    background-color: rgba(var(--color-button),var(--alpha-button-background));
     text-transform: uppercase;
     gap: 10px;
 }
