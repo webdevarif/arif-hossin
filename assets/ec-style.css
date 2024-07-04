@@ -1,0 +1,10 @@
+.ec-page-width{
+    width: 100%;
+    padding: 0rem 1.5rem;
+}
+
+@media (min-width: 991px) {
+    .ec-page-width{
+        padding: 0rem 5rem;
+    }
+}
