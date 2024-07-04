@@ -106,6 +106,32 @@
     </div>
 </div>
 
+{% javascript %}
+  class ECHeader extends HTMLElement {
+    constructor() {
+        super();
+    }
+
+    connectedCallback() {
+        this.mobileDrawerToggle = this.querySelector('.ec-header__toggler');
+        if (this.mobileDrawerToggle) {
+            this.mobileDrawerToggle.addEventListener('click', this.toggleModal.bind(this));
+        }
+    }
+
+    disconnectedCallback() {
+        if (this.mobileDrawerToggle) {
+            this.mobileDrawerToggle.removeEventListener('click', this.toggleModal.bind(this));
+        }
+    }
+
+    toggleModal() {
+        document.body.classList.toggle('open-modal');
+    }
+}
+customElements.define('ec-header', ECHeader);
+
+{% endjavascript %}
 
 {% schema %} {
   "name": "Header (EC)",
