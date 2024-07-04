@@ -1,6 +1,7 @@
 .ec-header__logo {
     display: flex;
     align-items: center;
+    justify-content: center;
     grid-area: heading;
 }
 
@@ -110,4 +111,19 @@
     top: 12px;
     width: 0;
     left: 50%; /* Assuming start-1/2 refers to left: 50% */
+}
+
+/* DRAWER */
+.ec-header__drawer {
+    display: none;
+}
+.ec-header__drawer-wrapper {
+    position: absolute;
+    top: 100%;
+    width: 100%;
+    padding: 2rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 }
