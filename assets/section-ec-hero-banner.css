@@ -1,0 +1,16 @@
+.ec-hero-banner__media {
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+}
+.ec-hero-banner__media >*:not(.zoom):not(.deferred-media__poster-button) {
+    display: block;
+    max-width: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+}
