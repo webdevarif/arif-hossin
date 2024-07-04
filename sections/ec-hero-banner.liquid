@@ -16,16 +16,38 @@
   {%- endstyle -%}
 
 
-<div class="ec-hero-banner color-{{ section.settings.color_scheme }} section-{{ section.id }}-padding">
-  <div class="ec-page-width">
-    <div class="ec-hero-banner__content">
+  {%- liquid
+    assign sizes = '100vw'
+    assign widths = '375, 550, 750, 1100, 1500, 1780, 2000, 3000, 3840' 
+    -%}
+
+<div 
+    class="ec-hero-banner color-{{ section.settings.color_scheme }} section-{{ section.id }}-padding"
+    id="Banner-{{ section.id }}"
+>
+    <div class="ec-hero-banner__media">
+        {%- liquid
+            assign image_height = section.settings.image.width | divided_by: section.settings.image.aspect_ratio
+        endif
+      -%}
+      {{
+        section.settings.image
+        | image_url: width: 3840
+        | image_tag:
+          width: section.settings.image.width,
+          height: image_height,
+          sizes: sizes,
+          widths: widths,
+          fetchpriority: fetch_priority
+      }}
+    </div>
+    <div class="ec-banner__content ec-page-width ec-banner__content--desktop-{{ section.settings.desktop_content_position }}  ec-banner__content--mobile-{{ section.settings.mobile_content_position }}">
         <h1>The Gift Guide</h1>
         <p>Discover Joy: Your Ultimate Holiday Gift Destination. Explore our curated selection and find the perfect gifts to delight your loved ones this holiday season.</p>
         <a href="#" class="ec-button__primary">
             Shop Now
         </a>
     </div>
-  </div>
 </div>
 {% schema %}
     {
@@ -34,7 +56,125 @@
         "disabled_on": {
             "groups": ["header", "footer"]
         },
-        "settings": [],
+        "settings": [
+            {
+            "type": "color_scheme",
+            "id": "color_scheme",
+            "label": "Section Color"
+            },
+            {
+                "type": "select",
+                "id": "desktop_content_position",
+                "options": [
+                    {
+                        "value": "top-left",
+                        "label": "Top Left"
+                    },
+                    {
+                        "value": "top-center",
+                        "label": "Top Center"
+                    },
+                    {
+                        "value": "top-right",
+                        "label": "Top Right"
+                    },
+                    {
+                        "value": "middle-left",
+                        "label": "Middle Left"
+                    },
+                    {
+                        "value": "middle-center",
+                        "label": "Middle Center"
+                    },
+                    {
+                        "value": "middle-right",
+                        "label": "Middle Right"
+                    },
+                    {
+                        "value": "bottom-left",
+                        "label": "Bottom Left"
+                    },
+                    {
+                        "value": "bottom-center",
+                        "label": "Bottom Center"
+                    },
+                    {
+                        "value": "bottom-right",
+                        "label": "Bottom Right"
+                    }
+                ],
+                "default": "middle-center",
+                "label": "Content Position (Desktop)"
+            },
+            {
+                "type": "select",
+                "id": "mobile_content_position",
+                "options": [
+                    {
+                        "value": "top-left",
+                        "label": "Top Left"
+                    },
+                    {
+                        "value": "top-center",
+                        "label": "Top Center"
+                    },
+                    {
+                        "value": "top-right",
+                        "label": "Top Right"
+                    },
+                    {
+                        "value": "middle-left",
+                        "label": "Middle Left"
+                    },
+                    {
+                        "value": "middle-center",
+                        "label": "Middle Center"
+                    },
+                    {
+                        "value": "middle-right",
+                        "label": "Middle Right"
+                    },
+                    {
+                        "value": "bottom-left",
+                        "label": "Bottom Left"
+                    },
+                    {
+                        "value": "bottom-center",
+                        "label": "Bottom Center"
+                    },
+                    {
+                        "value": "bottom-right",
+                        "label": "Bottom Right"
+                    }
+                ],
+                "default": "middle-center",
+                "label": "Content Position (Mobile)"
+            },
+            {
+                "type": "header",
+                "content": "Spacing"
+            },
+            {
+                "type": "range",
+                "id": "padding_top",
+                "min": 0,
+                "max": 100,
+                "step": 4,
+                "unit": "px",
+                "label": "Padding Top",
+                "default": 20
+            },
+            {
+                "type": "range",
+                "id": "padding_bottom",
+                "min": 0,
+                "max": 100,
+                "step": 4,
+                "unit": "px",
+                "label": "Padding Bottom",
+                "default": 20
+            }
+        ],
         "blocks": [],
         "presets": [
             {
