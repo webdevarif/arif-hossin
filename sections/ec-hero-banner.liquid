@@ -96,7 +96,7 @@
 {{ 'hero-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
 {%- endif -%}
 
-    <div class="ec-banner__content ec-page-width ec-banner__content--desktop-{{ section.settings.desktop_content_position }}  ec-banner__content--mobile-{{ section.settings.mobile_content_position }}">
+    <div class="ec-banner__content ec-page-width ec-banner__content--desktop-{{ section.settings.desktop_content_position }}  ec-banner__content--mobile-{{ section.settings.mobile_content_position }} ec-text-desktop-{{ section.settings.desktop_content_alignment }} ec-text-mobile-{{ section.settings.mobile_content_alignment }}">
         <h1>The Gift Guide</h1>
         <p>Discover Joy: Your Ultimate Holiday Gift Destination. Explore our curated selection and find the perfect gifts to delight your loved ones this holiday season.</p>
         <a href="#" class="ec-button__primary">
@@ -113,9 +113,19 @@
         },
         "settings": [
             {
-            "type": "color_scheme",
-            "id": "color_scheme",
-            "label": "Section Color"
+                "type": "color_scheme",
+                "id": "color_scheme",
+                "label": "Section Color"
+            },
+            {
+                "type": "image_picker",
+                "id": "desktop_image",
+                "label": "Desktop Image"
+            },
+            {
+                "type": "image_picker",
+                "id": "mobile_image",
+                "label": "Mobile Image"
             },
             {
                 "type": "select",
@@ -150,6 +160,28 @@
                 ],
                 "default": "middle-center",
                 "label": "Content Position (Mobile)"
+            },
+            {
+                "type": "select",
+                "id": "desktop_content_alignment",
+                "options": [
+                    { "value": "left", "label": "Left" },
+                    { "value": "center", "label": "Center" },
+                    { "value": "right", "label": "Right" }
+                ],
+                "default": "center",
+                "label": "Content Alignment (Desktop)"
+            },
+            {
+                "type": "select",
+                "id": "mobile_content_alignment",
+                "options": [
+                    { "value": "left", "label": "Left" },
+                    { "value": "center", "label": "Center" },
+                    { "value": "right", "label": "Right" }
+                ],
+                "default": "center",
+                "label": "Content Alignment (Desktop)"
             },
             {
                 "type": "header",
