@@ -14,7 +14,7 @@
   }
 {%- endstyle -%}
 
-<div class="ec-header color-{{ section.settings.color_scheme }} section-{{ section.id }}-padding">
+<ec-header class="ec-header color-{{ section.settings.color_scheme }} section-{{ section.id }}-padding">
     <div class="ec-page-width">
       <div class="ec-header__wrapper">
         {% comment %} Toggler {% endcomment %}
@@ -104,7 +104,7 @@
           </div>
         </div>
     </div>
-</div>
+</ec-header>
 
 {% javascript %}
   class ECHeader extends HTMLElement {
