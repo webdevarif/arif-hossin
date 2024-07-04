@@ -295,7 +295,8 @@
     {%- endif -%}
 
     {% comment %} {% sections 'header-group' %} {% endcomment %}
-    {% sections 'ec-header' %}
+
+    {% render "ec-header" %}
 
     <main id="MainContent" class="content-for-layout focus-none" role="main" tabindex="-1">
       {{ content_for_layout }}
