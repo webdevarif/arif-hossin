@@ -26,7 +26,7 @@ endif
 
 
 <div 
-    class="ec-hero-banner color-{{ section.settings.color_scheme }} section-{{ section.id }}-padding"
+    class="ec-hero-banner ec-banner-desktop-{{  section.settings.desktop_image_height }} ec-banner-mobile-{{  section.settings.mobile_image_height }} color-{{ section.settings.color_scheme }} section-{{ section.id }}-padding"
     id="Banner-{{ section.id }}"
 >
 {%- if section.settings.mobile_image == blank and section.settings.desktop_image != blank -%}
@@ -124,9 +124,57 @@ endif
             "label": "Desktop Image"
         },
         {
+            "type": "select",
+            "id": "desktop_image_height",
+            "options": [
+                {
+                    "value": "adapt",
+                    "label": "Adapt"
+                },
+                {
+                    "value": "small",
+                    "label": "Small"
+                },
+                {
+                    "value": "medium",
+                    "label": "Medium"
+                },
+                {
+                    "value": "large",
+                    "label": "Large"
+                }
+            ],
+            "default": "medium",
+            "label": "Image Height (Desktop)"
+        },
+        {
             "type": "image_picker",
             "id": "mobile_image",
             "label": "Mobile Image"
+        },
+        {
+            "type": "select",
+            "id": "mobile_image_height",
+            "options": [
+                {
+                    "value": "adapt",
+                    "label": "Adapt"
+                },
+                {
+                    "value": "small",
+                    "label": "Small"
+                },
+                {
+                    "value": "medium",
+                    "label": "Medium"
+                },
+                {
+                    "value": "large",
+                    "label": "Large"
+                }
+            ],
+            "default": "medium",
+            "label": "Image Height (Mobile)"
         },
         {
             "type": "select",
