@@ -15,6 +15,7 @@
         "color_scheme": "",
         "desktop_image": "shopify:\/\/shop_images\/hero-banner-desktop.png",
         "desktop_image_height": "adapt",
+        "mobile_image": "shopify:\/\/shop_images\/hero-banner-mobile.png",
         "mobile_image_height": "adapt",
         "desktop_content_position": "middle-center",
         "mobile_content_position": "middle-center",
