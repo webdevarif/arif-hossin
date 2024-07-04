@@ -1,3 +1,8 @@
+.ec-header__logo {
+    display: flex;
+    align-items: center;
+}
+
 .ec-header__heading-logo {
     height: auto;
     max-width: 100%;
@@ -7,6 +12,7 @@
     display: grid;
     grid-template-columns: auto 1fr auto;
     gap: 1rem;
+    align-items: center;
 }
 
 .ec-header__info {

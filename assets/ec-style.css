@@ -17,7 +17,7 @@
     align-items: center;
     border: 0;
     height: 44px;
-    padding: 5px 30px;
+    padding: 5px 40px;
     cursor: pointer;
     font-size: 16px;
     text-decoration: none;
@@ -32,4 +32,11 @@
     width: 26px;
     min-width: 26px;
     display: flex;
+}
+
+span.ec-button__icon svg {
+    transition: all 0.2s ease-in-out;
+}
+.ec-button__primary:hover .ec-button__icon svg{
+    transform: translateX(10px);
 }
