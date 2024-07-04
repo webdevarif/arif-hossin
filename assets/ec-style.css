@@ -54,3 +54,7 @@ span.ec-button__icon svg {
 .ec-button__primary:hover .ec-button__icon svg{
     transform: translateX(10px);
 }
+
+.ec-button__primary[aria-disabled="true"]{
+    opacity: 0.75;
+}
