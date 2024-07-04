@@ -58,3 +58,22 @@ span.ec-button__icon svg {
 .ec-button__primary[aria-disabled="true"]{
     opacity: 0.75;
 }
+
+
+@media screen and (max-width: 749px) {
+    .ec-small-hide {
+      display: none !important;
+    }
+  }
+  
+  @media screen and (min-width: 750px) and (max-width: 989px) {
+    .ec-medium-hide {
+      display: none !important;
+    }
+  }
+  
+  @media screen and (min-width: 990px) {
+    .ec-large-up-hide {
+      display: none !important;
+    }
+  }
