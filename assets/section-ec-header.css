@@ -1,3 +1,7 @@
+.ec-header{
+    position: relative;
+}
+
 .ec-header__logo {
     display: flex;
     align-items: center;
