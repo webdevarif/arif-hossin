@@ -25,7 +25,7 @@
             }
         },
         "header": {
-            "type": "header",
+            "type": "ec-header",
             "settings": {
                 "logo_position": "middle-left",
                 "menu": "main-menu",
