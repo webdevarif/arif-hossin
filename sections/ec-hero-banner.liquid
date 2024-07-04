@@ -14,6 +14,33 @@
 }
 {%- endstyle -%}
 
+{%- if section.settings.desktop_image_height_height == 'adapt' and section.settings.desktop_image != blank -%}
+    {%- style -%}  
+      @media screen and (min-width: 750px) {
+        #Banner-{{ section.id }}::before,
+        #Banner-{{ section.id }} .ec-hero-banner__media::before {
+          padding-bottom: {{ 1 | divided_by: section.settings.desktop_image.aspect_ratio | times: 100 }}%;
+          content: '';
+          display: block;
+        }
+      }
+    {%- endstyle -%}
+  {%- endif -%}
+  
+  {%- if section.settings.mobile_image_height == 'adapt' and section.settings.mobile_image != blank -%}
+    {%- style -%}
+      @media screen and (max-width: 749px) {
+        #Banner-{{ section.id }}::before,
+        #Banner-{{ section.id }} .ec-hero-banner__media::before {
+          padding-bottom: {{ 1 | divided_by: section.settings.mobile_image.aspect_ratio | times: 100 }}%;
+          content: '';
+          display: block;
+        }
+      }
+    {%- endstyle -%}
+  {%- endif -%}
+
+
 {%- liquid
 assign sizes = '100vw'
 assign widths = '375, 550, 750, 1100, 1500, 1780, 2000, 3000, 3840'
@@ -26,7 +53,7 @@ endif
 
 
 <div 
-    class="ec-hero-banner ec-banner-desktop-{{  section.settings.desktop_image_height }} ec-banner-mobile-{{  section.settings.mobile_image_height }} color-{{ section.settings.color_scheme }} section-{{ section.id }}-padding"
+    class="ec-hero-banner ec-banner-desktop-{{  section.settings.desktop_image_height }} ec-banner-mobile-{{  section.settings.mobile_image_height }} color-{{ section.settings.color_scheme }}"
     id="Banner-{{ section.id }}"
 >
 {%- if section.settings.mobile_image == blank and section.settings.desktop_image != blank -%}
