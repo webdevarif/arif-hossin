@@ -3,6 +3,12 @@
     max-width: 100%;
 }
 
-.ec-header{
+.ec-header__wrapper {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 1rem;
+}
 
+.ec-header__info {
+    text-align: center;
 }
