@@ -76,11 +76,11 @@
 
     <div class="ec-header__drawer">
         {% comment %} Info {% endcomment %}
-        <div class="ec-header__drawer-info">
           {% if section.settings.info !=blank %}
-            {{ section.settings.info   }}
-          {% endif %}
-        </div>
+            <div class="ec-header__drawer-info">
+              {{ section.settings.info   }}
+              </div>
+            {% endif %}
         {% comment %} Actions {% endcomment %}
         <div class="ec-header__drawer-actions">
           {%- if section.settings.button_label != blank -%}
