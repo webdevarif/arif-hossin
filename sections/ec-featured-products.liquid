@@ -71,11 +71,23 @@
                                 <path d="M5.03784 13.4285L13.5231 4.94325" stroke="black" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="round"/>
                             </svg>
                         </span>
-                        <h2>{{ block.settings.product.title }}</h2>
-                        <img src="{{ image_to_show | image_url: width: 750 }}" alt="{{ block.settings.product.title }}">
+
+                        <div class="ec-modal__info">
+                            <div>
+                                <img class="ec-modal__thumbnail" src="{{ image_to_show | image_url: width: 750 }}" alt="{{ block.settings.product.title }}">
+                            </div>
+                            <div>
+                                <h2 class="ec-modal__title">{{ block.settings.product.title | escape }}</h2>
+                                <div class="ec-modal__price">{{ block.settings.product.price | money }}</div>
+                                <div class="ec-modal__description">{{ block.settings.product.description | escape }}</div>
+                                
+                                <button class="ec-modal__add-to-cart" type="button" onclick="addToCart('{{ block.settings.product.id }}')">Add to Cart</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+
             {% endfor %}
         </ec-featured-product>
     </div>
