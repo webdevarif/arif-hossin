@@ -84,39 +84,39 @@
           "type": "product_item",
           "settings": {
             "product": "black-leather-bag",
-            "position_virtical": 50,
-            "position_horizontal": 50
+            "position_virtical": 52,
+            "position_horizontal": 56
           }
         },
         "product_item_rmniy8": {
           "type": "product_item",
           "settings": {
             "product": "blue-silk-tuxedo",
-            "position_virtical": 50,
-            "position_horizontal": 50
+            "position_virtical": 46,
+            "position_horizontal": 80
           }
         },
         "product_item_PbKgxk": {
           "type": "product_item",
           "settings": {
             "product": "chequered-red-shirt",
-            "position_virtical": 50,
-            "position_horizontal": 50
+            "position_virtical": 20,
+            "position_horizontal": 58
           }
         },
         "product_item_3UPyLM": {
           "type": "product_item",
           "settings": {
             "product": "classic-leather-jacket",
-            "position_virtical": 50,
-            "position_horizontal": 50
+            "position_virtical": 24,
+            "position_horizontal": 66
           }
         },
         "product_item_a9CE9Q": {
           "type": "product_item",
           "settings": {
             "product": "classic-varsity-top",
-            "position_virtical": 50,
+            "position_virtical": 26,
             "position_horizontal": 50
           }
         },
@@ -124,8 +124,8 @@
           "type": "product_item",
           "settings": {
             "product": "dark-denim-top",
-            "position_virtical": 50,
-            "position_horizontal": 50
+            "position_virtical": 34,
+            "position_horizontal": 72
           }
         }
       },
