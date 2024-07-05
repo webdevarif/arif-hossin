@@ -94,11 +94,10 @@
         }
 
         toggleModal(event) {
-            alert("CLICKED");
             const targetModalId = event.currentTarget.getAttribute('data-target');
             const targetModal = document.getElementById(targetModalId);
             if (targetModal) {
-                document.body.classList.toggle('overflow-hidden');
+                document.body.classList.toggle('open-product-modal');
                 targetModal.classList.toggle('active');
             }
         }
