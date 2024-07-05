@@ -81,6 +81,7 @@
                             </div>
                         </div>
                         {% unless product.has_only_default_variant %}
+                            <ec-product-variant class="">
                             {% for option in product.options_with_values %}
                               <label
                                 {% if option.name == 'default' %}
@@ -159,7 +160,8 @@
                                 {%- endfor -%}
                               </fieldset>
                             {% endfor %}
-                        {% endunless %}
+                        </ec-product-variant>
+                    {% endunless %}
                     </div>
                 </div>
             </div>
