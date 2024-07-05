@@ -88,10 +88,25 @@
                                 {% for option in block.settings.product.options_with_values %}
                                     <label for="option{{ forloop.index }}">{{ option.name }}</label>
                                     {% if option.name == "Color" %}
+
+                                        {% assign option_position = forloop.index %}
+                                        {% for value in option.values %}
+                                        {% endfor %}
+
                                         <div class="ec-modal__color-options">
                                             {% for value in option.values %}
-                                                <input type="ratio" id="color--{{ forloop.index }}" name="color" value="{{ value | escape }}">
-                                                <label for="color--{{ forloop.index }}">{{ value }}</label>
+                                                <div class="ec-modal__color-options-item">
+                                                    <input type="radio" 
+                                                           class="single-option-selector-{{ section.id }}" 
+                                                           name="option{{ option_position }}" 
+                                                           value="{{ value | escape }}" 
+                                                           data-index="option{{ option_position }}" 
+                                                           id="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
+                                                           {% if option.selected_value == value %} checked="checked" {% endif %}>
+                                                    <label for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}">
+                                                        {{ value }}
+                                                    </label>
+                                                </div>
                                             {% endfor %}
                                         </div>
                                     {% else %}
