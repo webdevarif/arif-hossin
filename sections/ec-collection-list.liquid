@@ -1,0 +1,66 @@
+
+{%- style -%}
+    .section-{{ section.id }}-padding {
+        padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+        padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+    }
+    
+    @media screen and (min-width: 750px) {
+        .section-{{ section.id }}-padding {
+            padding-top: {{ section.settings.padding_top }}px;
+            padding-bottom: {{ section.settings.padding_bottom }}px;
+        }
+    }
+    {%- endstyle -%}
+
+<div class="color-{{ section.settings.color_scheme }} section-{{ section.id }}-padding">
+    <div class="ec-page-width">
+        Collection List
+    </div>
+</div>
+
+{% schema %}
+    {
+        "name": "Collection List (EC)",
+        "class": "section",
+        "disabled_on": {
+            "groups": ["header", "footer"]
+        },
+        "settings": [
+            {
+                "type": "color_scheme",
+                "id": "color_scheme",
+                "label": "Section Color"
+            },
+            {
+                "type": "header",
+                "content": "Spacing"
+            },
+            {
+                "type": "range",
+                "id": "padding_top",
+                "min": 0,
+                "max": 100,
+                "step": 4,
+                "unit": "px",
+                "label": "Padding Top",
+                "default": 20
+            },
+            {
+                "type": "range",
+                "id": "padding_bottom",
+                "min": 0,
+                "max": 100,
+                "step": 4,
+                "unit": "px",
+                "label": "Padding Bottom",
+                "default": 20
+            }
+        ],
+        "presets": [
+            {
+                "name": "Collection List (EC)"
+            }
+        ]
+    }
+{% endschema %}
