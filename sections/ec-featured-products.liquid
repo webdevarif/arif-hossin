@@ -98,7 +98,8 @@
             const targetModalId = event.currentTarget.getAttribute('data-target');
             const targetModal = document.getElementById(targetModalId);
             if (targetModal) {
-            targetModal.classList.toggle('active');
+                document.body.classList.toggle('overflow-hidden');
+                targetModal.classList.toggle('active');
             }
         }
     }
