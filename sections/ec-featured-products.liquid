@@ -94,6 +94,7 @@
             super();
         }
 
+
         connectedCallback() {
             this.productPointer = this.querySelector('.ec-featured-product__item-pointer');
             if (this.productPointer) {
@@ -134,14 +135,20 @@
                 const modal = event.currentTarget.closest('.ec-modal');
                 if (modal) {
                     modal.classList.remove('active');
-                    const anyModalOpen = document.querySelector('.ec-modal.active');
-                    if (!anyModalOpen) {
-                        document.body.classList.remove('open-product-modal');
-                    }
+                    updateBodyClass();
                 }
             });
         });
     });
+
+    function updateBodyClass() {
+        const anyModalOpen = document.querySelector('.ec-modal.active');
+        if (anyModalOpen) {
+            document.body.classList.add('open-product-modal');
+        } else {
+            document.body.classList.remove('open-product-modal');
+        }
+    }
 {% endjavascript %}
 
 {% schema %}
