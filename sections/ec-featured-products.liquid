@@ -84,16 +84,27 @@
                         </div>
                         {% unless block.settings.product.has_only_default_variant %}
                             <ec-product-variant>
+                                <div class="ec-product-variant">
                                 {% for option in block.settings.product.options_with_values %}
                                     <label for="option{{ forloop.index }}">{{ option.name }}</label>
-                                    <select id="option{{ forloop.index }}" name="option{{ forloop.index }}" class="single-option-selector-{{ section.id }}">
-                                        {% for value in option.values %}
-                                            <option value="{{ value | escape }}" {% if option.selected_value == value %} selected {% endif %}>
-                                                {{ value }}
-                                            </option>
-                                        {% endfor %}
-                                    </select>
+                                    {% if option.name == "Color" %}
+                                        <div class="ec-modal__color-options">
+                                            {% for value in option.values %}
+                                                <input type="checkbox" id="color{{ forloop.index }}" name="color" value="{{ value | escape }}">
+                                                <label for="color{{ forloop.index }}">{{ value }}</label>
+                                            {% endfor %}
+                                        </div>
+                                    {% else %}
+                                        <select id="option{{ forloop.index }}" name="option{{ forloop.index }}" class="single-option-selector-{{ section.id }}">
+                                            {% for value in option.values %}
+                                                <option value="{{ value | escape }}" {% if option.selected_value == value %} selected {% endif %}>
+                                                    {{ value }}
+                                                </option>
+                                            {% endfor %}
+                                        </select>
+                                    {% endif %}
                                 {% endfor %}
+                                </div>
                             </ec-product-variant>
                         {% endunless %}
                     </div>
