@@ -25,26 +25,22 @@
 
 <div class="color-{{ section.settings.color_scheme }} section-{{ section.id }}-padding">
     <div class="ec-page-width">
-        {%- liquid
-          assign columns = section.blocks.size
-          if columns > 3
-            assign columns = 3
-          endif
-        -%}
 
-        {%- for block in section.blocks -%}
-            <div class="ec-product__item">
-                <div class="ec-product__item-thumbnail">
-                    {{
-                        block.settings.product.preview_image
-                        | image_url: width: 1946
-                        | image_tag:
-                        sizes: sizes,
-                        widths: widths
-                    }}
+        <div class="ec-featured-product__grid">
+            {%- for block in section.blocks -%}
+                <div class="ec-featured-product__item">
+                    <div class="ec-featured-product__item-thumbnail">
+                        {{
+                            block.settings.product.preview_image
+                            | image_url: width: 1946
+                            | image_tag:
+                            sizes: sizes,
+                            widths: widths
+                        }}
+                    </div>
                 </div>
-            </div>
-        {%- endfor -%}
+            {%- endfor -%}
+        </div>
     </div>
 </div>
 
