@@ -94,7 +94,7 @@
                               {% assign option_position = forloop.index %}
                               <fieldset>
                                 {%- for value in option.values -%}
-                                  {%- for variant in product.variants -%}
+                                  {%- for variant in block.settings.product.variants -%}
                                     {%- if variant.option1 == value %}
                                       {%- if variant.available == true %}
                                         <input
