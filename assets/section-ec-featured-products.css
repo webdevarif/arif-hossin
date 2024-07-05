@@ -170,3 +170,15 @@ label.ec-product-variant__label {
 .ec-modal__color-options-item input[type="radio"][value="Black"] ~ label::before{
     background: #000;
 }
+.ec-modal__color-options-item input[type="radio"][value="White"] ~ label::before{
+    background: #fff;
+}
+.ec-modal__color-options-item input[type="radio"][value="Blue"] ~ label::before{
+    background: #0D499F;
+}
+.ec-modal__color-options-item input[type="radio"][value="Red"] ~ label::before{
+    background: #B20F36;
+}
+.ec-modal__color-options-item input[type="radio"][value="Grey"] ~ label::before{
+    background: #AFAFB7;
+}
