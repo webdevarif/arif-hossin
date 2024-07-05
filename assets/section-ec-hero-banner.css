@@ -15,9 +15,19 @@
     width: 100%;
 }
 
-.ec-banner-desktop-adapt .ec-hero-banner__media,
-.ec-banner-mobile-adapt .ec-hero-banner__media,
+/* .ec-banner-desktop-adapt .ec-hero-banner__media,
+.ec-banner-mobile-adapt .ec-hero-banner__media, */
 .ec-banner-desktop-adapt, 
 .ec-banner-mobile-adapt {
     height: auto;
+}
+
+.ec-banner__content {
+    padding: 0;
+    display: flex;
+    position: relative;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
 }
