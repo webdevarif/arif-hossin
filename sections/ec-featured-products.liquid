@@ -31,6 +31,8 @@
 
         <ec-featured-product class="ec-featured-product__grid">
             {% for block in section.blocks %}
+
+                {%- assign product = block.settings.product -%}
             <style>
                 .ec-featured-product__item-pointer-{{ block.id }} {
                 top: {{ block.settings.position_virtical | times: 1 | round: 0 }}%;
@@ -42,8 +44,8 @@
             </style>
             <div class="ec-featured-product__item">
                 <div class="ec-featured-product__item-thumbnail">
-                {% assign primary_image = block.settings.product.featured_media.preview_image %}
-                {% assign secondary_image = block.settings.product.media[1].preview_image %}
+                {% assign primary_image = product.featured_media.preview_image %}
+                {% assign secondary_image = product.media[1].preview_image %}
                 {%- if primary_image  -%}
                     {% assign image_to_show = primary_image %}      
                 {%- else -%}
@@ -74,12 +76,12 @@
 
                         <div class="ec-modal__info">
                             <div>
-                                <img class="ec-modal__thumbnail" src="{{ image_to_show | image_url: width: 750 }}" alt="{{ block.settings.product.title }}">
+                                <img class="ec-modal__thumbnail" src="{{ image_to_show | image_url: width: 750 }}" alt="{{ product.title }}">
                             </div>
                             <div>
-                                <h2 class="ec-modal__title">{{ block.settings.product.title | escape }}</h2>
-                                <div class="ec-modal__price">{{ block.settings.product.price | money }}</div>
-                                <div class="ec-modal__description">{{ block.settings.product.description | escape }}</div>
+                                <h2 class="ec-modal__title">{{ product.title | escape }}</h2>
+                                <div class="ec-modal__price">PRICE</div>
+                                <div class="ec-modal__description">DESCRIPTION</div>
                                 <button class="ec-modal__add-to-cart" type="button">Add to Cart</button>
                             </div>
                         </div>
