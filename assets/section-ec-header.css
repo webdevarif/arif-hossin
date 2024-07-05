@@ -66,8 +66,7 @@
 }
 
 @media (min-width: 990px){
-    .ec-header__toggler,
-    .ec-header__drawer {
+    .ec-header__toggler{
         display: none;
     }
 }
@@ -131,4 +130,10 @@ body:not(.open-drawer) .ec-header__drawer {
     display: flex;
     flex-direction: column;
     gap: 1rem;
+}
+
+@media (min-width: 990px){
+    .ec-header__drawer {
+        display: none;
+    }
 }
