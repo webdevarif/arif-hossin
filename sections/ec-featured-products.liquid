@@ -13,6 +13,16 @@
     }
     {%- endstyle -%}
 
+{%- liquid
+    assign sizes = '750'
+    assign widths = '375, 550, 750, 1100, 1500, 1780, 2000, 3000, 3840'
+
+    assign fetch_priority = 'auto'
+    if section.index == 1
+    assign fetch_priority = 'high'
+    endif
+-%}
+
 <div class="color-{{ section.settings.color_scheme }} section-{{ section.id }}-padding">
     <div class="ec-page-width">
         {%- liquid
@@ -23,8 +33,16 @@
         -%}
 
         {%- for block in section.blocks -%}
-            <div class="">
-                TITLE
+            <div class="ec-product__item">
+                <div class="ec-product__item-thumbnail">
+                    {{
+                        block.settings.product.preview_image
+                        | image_url: width: 1946
+                        | image_tag:
+                        sizes: sizes,
+                        widths: widths
+                    }}
+                </div>
             </div>
         {%- endfor -%}
     </div>
