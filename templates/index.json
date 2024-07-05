@@ -108,16 +108,16 @@
           "type": "product_item",
           "settings": {
             "product": "classic-leather-jacket",
-            "position_virtical": 22,
-            "position_horizontal": 68
+            "position_virtical": 24,
+            "position_horizontal": 66
           }
         },
         "product_item_a9CE9Q": {
           "type": "product_item",
           "settings": {
             "product": "classic-varsity-top",
-            "position_virtical": 22,
-            "position_horizontal": 46
+            "position_virtical": 26,
+            "position_horizontal": 50
           }
         },
         "product_item_MiGmVz": {
