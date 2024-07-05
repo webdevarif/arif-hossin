@@ -59,6 +59,12 @@
     max-width: 450px;
   }
 
+  @media ( min-width: 990px){
+    .ec-modal__content {
+        padding: 30px;
+    }
+  }
+
   .ec-modal-close {
     color: #aaa;
     float: right;
