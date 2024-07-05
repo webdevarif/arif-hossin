@@ -87,7 +87,7 @@
                                 <div class="ec-product-variant">
                                 {% for option in block.settings.product.options_with_values %}
                                     <div class="ec-product-variant__item">
-                                    <label for="option{{ forloop.index }}">{{ option.name }}</label>
+                                    <label class="ec-product-variant__label" for="option{{ forloop.index }}">{{ option.name }}</label>
                                     {% if option.name == "Color" %}
 
                                         {% assign option_position = forloop.index %}
