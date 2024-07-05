@@ -66,7 +66,8 @@
 }
 
 @media (min-width: 990px){
-    .ec-header__toggler {
+    .ec-header__toggler,
+    .ec-header__drawer {
         display: none;
     }
 }
