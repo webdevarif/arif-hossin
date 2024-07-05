@@ -15,7 +15,18 @@
 
 <div class="color-{{ section.settings.color_scheme }} section-{{ section.id }}-padding">
     <div class="ec-page-width">
-        Collection List
+        {%- liquid
+          assign columns = section.blocks.size
+          if columns > 3
+            assign columns = 3
+          endif
+        -%}
+
+        {%- for block in section.blocks -%}
+            <div class="">
+                TITLE
+            </div>
+        {%- endfor -%}
     </div>
 </div>
 
@@ -26,6 +37,19 @@
         "disabled_on": {
             "groups": ["header", "footer"]
         },
+        "blocks": [
+            {
+                "type": "collection_item",
+                "name": "Collection Item",
+                "settings": [
+                    {
+                        "type": "collection",
+                        "id": "collection",
+                        "label": "Collection"
+                    }
+                ]
+            }
+        ],
         "settings": [
             {
                 "type": "color_scheme",
