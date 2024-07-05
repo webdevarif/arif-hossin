@@ -118,6 +118,7 @@ label.ec-product-variant__label {
     font-size: 14px;
     line-height: 1.6;
     color: #333;
+    margin-bottom: 10px;
 }
 
 .ec-product-variant {
@@ -167,6 +168,9 @@ label.ec-product-variant__label {
     position: absolute;
     left: -1px;
     top: -1px;
+    background-image: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYiIGhlaWdodD0iMTAiIHZpZXdCb3g9IjAgMCAxNiAxMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4NCjxwYXRoIGQ9Ik0yIDJMOCA4TDE0IDIiIHN0cm9rZT0iYmxhY2siIHN0cm9rZS13aWR0aD0iMS41IiBzdHJva2UtbGluZWNhcD0ic3F1YXJlIi8+DQo8L3N2Zz4NCg==);
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 .ec-product-variant__item .form--select {
