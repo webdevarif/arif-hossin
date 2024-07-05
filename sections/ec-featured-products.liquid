@@ -32,20 +32,20 @@
 
 {% schema %}
     {
-        "name": "Collection List (EC)",
+        "name": "Featured Products (EC)",
         "class": "section",
         "disabled_on": {
             "groups": ["header", "footer"]
         },
         "blocks": [
             {
-                "type": "collection_item",
-                "name": "Collection Item",
+                "type": "product_item",
+                "name": "Product Item",
                 "settings": [
                     {
-                        "type": "collection",
-                        "id": "collection",
-                        "label": "Collection"
+                        "type": "product",
+                        "id": "product",
+                        "label": "Product"
                     }
                 ]
             }
@@ -83,7 +83,7 @@
         ],
         "presets": [
             {
-                "name": "Collection List (EC)"
+                "name": "Featured Products (EC)"
             }
         ]
     }
