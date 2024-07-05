@@ -150,6 +150,7 @@ label.ec-product-variant__label {
     color: #000;
     position: relative;
     cursor: pointer;
+    margin-bottom: 10px;
 }
 .ec-modal__color-options-item input[type=radio]:checked ~ label {
     background: #000;
