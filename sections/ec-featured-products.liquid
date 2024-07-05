@@ -40,12 +40,36 @@
         "blocks": [
             {
                 "type": "product_item",
-                "name": "Product Item",
+                "name": "Product    ",
                 "settings": [
                     {
                         "type": "product",
                         "id": "product",
                         "label": "Product"
+                    },
+                    {
+                        "type": "header",
+                        "content": "Pointer Position"
+                    },
+                    {
+                        "type": "range",
+                        "id": "position_virtical",
+                        "min": 0,
+                        "max": 100,
+                        "step": 2,
+                        "unit": "%",
+                        "label": "Virtical",
+                        "default": 50
+                    },
+                    {
+                        "type": "range",
+                        "id": "position_horizontal",
+                        "min": 0,
+                        "max": 100,
+                        "step": 2,
+                        "unit": "%",
+                        "label": "Horizontal",
+                        "default": 50
                     }
                 ]
             }
