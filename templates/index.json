@@ -9,22 +9,6 @@
 */
 {
   "sections": {
-    "ec_hero_banner_jXXakk": {
-      "type": "ec-hero-banner",
-      "settings": {
-        "color_scheme": "",
-        "desktop_image": "shopify:\/\/shop_images\/hero-banner-desktop.png",
-        "desktop_image_height": "adapt",
-        "mobile_image": "shopify:\/\/shop_images\/hero-banner-mobile.png",
-        "mobile_image_height": "adapt",
-        "desktop_content_position": "middle-center",
-        "mobile_content_position": "middle-center",
-        "desktop_content_alignment": "center",
-        "mobile_content_alignment": "center",
-        "padding_top": 20,
-        "padding_bottom": 20
-      }
-    },
     "image_banner": {
       "type": "image-banner",
       "blocks": {
@@ -95,7 +79,6 @@
     }
   },
   "order": [
-    "ec_hero_banner_jXXakk",
     "image_banner",
     "featured_collection"
   ]
