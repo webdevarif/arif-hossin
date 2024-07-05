@@ -111,6 +111,7 @@
                                             {% endfor %}
                                         </div>
                                     {% else %}
+                                    <div class="form--select">
                                         <select id="option{{ forloop.index }}" name="option{{ forloop.index }}" class="single-option-selector-{{ section.id }}">
                                             {% for value in option.values %}
                                                 <option value="{{ value | escape }}" {% if option.selected_value == value %} selected {% endif %}>
@@ -118,6 +119,7 @@
                                                 </option>
                                             {% endfor %}
                                         </select>
+                                    </div>
                                     {% endif %}
                                     </div>
                                 {% endfor %}
