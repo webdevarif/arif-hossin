@@ -30,13 +30,27 @@
             {%- for block in section.blocks -%}
                 <div class="ec-featured-product__item">
                     <div class="ec-featured-product__item-thumbnail">
+                        {%- liquid
+                            assign primary_image = block.settings.product.featured_media.preview_image
+                            assign secondary_image = block.settings.product.media[1].preview_image
+                        -%}
+                        {%- if primary_image -%}
+                            {{
+                                primary_image
+                                | image_url: width: 1946
+                                | image_tag:
+                                sizes: sizes,
+                                widths: widths
+                            }}
+                        {%- else -%}
                         {{
-                            block.settings.product.media[1].preview_image
+                            secondary_image
                             | image_url: width: 1946
                             | image_tag:
                             sizes: sizes,
                             widths: widths
                         }}
+                        {%- endif -%}
                     </div>
                 </div>
             {%- endfor -%}
