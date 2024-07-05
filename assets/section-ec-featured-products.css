@@ -149,6 +149,7 @@ label.ec-product-variant__label {
     font-weight: 500;
     color: #000;
     position: relative;
+    cursor: pointer;
 }
 .ec-modal__color-options-item input[type=radio]:checked ~ label {
     background: #000;
@@ -164,4 +165,8 @@ label.ec-product-variant__label {
     position: absolute;
     left: -1px;
     top: -1px;
+}
+
+.ec-modal__color-options-item input[type="radio"][value="Black"] ~ label::before{
+    background: #000;
 }
