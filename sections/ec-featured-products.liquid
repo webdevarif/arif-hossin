@@ -149,15 +149,19 @@
         }
 
         connectedCallback() {
-            this.productPointer = this.querySelector('.ec-featured-product__item-pointer');
-            if (this.productPointer) {
-                this.productPointer.addEventListener('click', this.toggleModal.bind(this));
+            this.productPointers = this.querySelectorAll('.ec-featured-product__item-pointer');
+            if (this.productPointers) {
+                this.productPointers.forEach(pointer => {
+                    pointer.addEventListener('click', this.toggleModal.bind(this));
+                });
             }
         }
 
         disconnectedCallback() {
-            if (this.productPointer) {
-                this.productPointer.removeEventListener('click', this.toggleModal.bind(this));
+            if (this.productPointers) {
+                this.productPointers.forEach(pointer => {
+                    pointer.removeEventListener('click', this.toggleModal.bind(this));
+                });
             }
         }
 
