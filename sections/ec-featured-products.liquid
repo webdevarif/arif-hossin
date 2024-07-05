@@ -98,13 +98,13 @@
                                             {% for value in option.values %}
                                                 <div class="ec-modal__color-options-item">
                                                     <input type="radio" 
-                                                           class="single-option-selector single-option-selector-{{ section.id }}" 
+                                                           class="single-option-selector single-option-selector-{{ block.id }}" 
                                                            name="option{{ option_position }}" 
                                                            value="{{ value | escape }}" 
                                                            data-index="option{{ option_position }}" 
-                                                           id="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
+                                                           id="{{ block.id }}-{{ option.position }}-{{ forloop.index0 }}"
                                                            {% if option.selected_value == value %} checked="checked" {% endif %}>
-                                                    <label for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}">
+                                                    <label for="{{ block.id }}-{{ option.position }}-{{ forloop.index0 }}">
                                                         {{ value }}
                                                     </label>
                                                 </div>
@@ -112,7 +112,7 @@
                                         </div>
                                     {% else %}
                                     <div class="form--select">
-                                        <select id="option{{ forloop.index }}" name="option{{ forloop.index }}" class="single-option-selector single-option-selector-{{ section.id }}">
+                                        <select id="option{{ forloop.index }}" name="option{{ forloop.index }}" class="single-option-selector single-option-selector-{{ block.id }}">
                                             {% for value in option.values %}
                                                 <option value="{{ value | escape }}" {% if option.selected_value == value %} selected {% endif %}>
                                                     {{ value }}
