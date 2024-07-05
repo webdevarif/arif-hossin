@@ -118,6 +118,7 @@ label.ec-product-variant__label {
     font-size: 14px;
     line-height: 1.6;
     color: #333;
+    margin-bottom: 10px;
 }
 
 .ec-product-variant {
@@ -150,7 +151,6 @@ label.ec-product-variant__label {
     color: #000;
     position: relative;
     cursor: pointer;
-    margin-bottom: 10px;
 }
 .ec-modal__color-options-item input[type=radio]:checked ~ label {
     background: #000;
