@@ -15,6 +15,8 @@
     width: 100%;
 }
 
+.ec-banner-desktop-adapt .ec-hero-banner__media,
+.ec-banner-mobile-adapt .ec-hero-banner__media,
 .ec-banner-desktop-adapt, 
 .ec-banner-mobile-adapt {
     height: auto;
