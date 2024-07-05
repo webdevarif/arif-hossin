@@ -81,87 +81,29 @@
                             </div>
                         </div>
                         {% unless block.settings.product.has_only_default_variant %}
-                            <ec-product-variant class="">
-                            {% for option in block.settings.product.options_with_values %}
-                              <label
-                                {% if option.name == 'default' %}
-                                  class="label--hidden"
-                                {% endif -%}
-                                for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
-                              >
-                                {{ option.name }}
-                              </label>
-                              {% assign option_position = forloop.index %}
-                              <fieldset>
-                                {%- for value in option.values -%}
-                                  {%- for variant in block.settings.product.variants -%}
-                                    {%- if variant.option1 == value %}
-                                      {%- if variant.available == true %}
-                                        <input
-                                          type="radio"
-                                          class="single-option-selector-{{ section.id }} "
-                                          {% if option.selected_value == value %}
-                                            checked="checked"
-                                          {% endif %}
-                                          value="{{ value | escape }}"
-                                          data-index="option{{option_position}}"
-                                          name="{{ option.name | handleize }}"
-                                          id="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
-                                        >
-                                        <label for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}">
-                                          {{ value }}
-                                        </label>
-                                      {% else %}
-                                        <input
-                                          type="radio"
-                                          class="single-option-selector-{{ section.id }}"
-                                          value="{{ value | escape }}"
-                                          sold-out="sold-out"
-                                          data-index="option{{option_position}}"
-                                          name="{{ option.name | handleize }}"
-                                          id="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
-                                        >
-                                        <label for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"  style="background-color: lightgrey; color: white;">
-                                          {{ value }}
-                                        </label>
-                                      {%- endif -%}
-                                    {%- endif -%}
-                                  {%- endfor -%}
-                                {%- endfor -%}
-                              </fieldset>
-                            {% endfor %}
-                          {% else %}
-                            {% for option in block.settings.product.options_with_values %}
-                              <label
-                                {% if option.name == 'default' %}
-                                  class="label--hidden"
-                                {% endif -%}
-                                for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
-                              >
-                                {{ option.name }}
-                              </label>
-                              {% assign option_position = forloop.index %}
-                              <fieldset>
-                                {%- for value in option.values -%}
-                                  <input
-                                    type="radio"
-                                    class="single-option-selector-{{ section.id }} "
-                                    {% if option.selected_value == value %}
-                                      checked="checked"
-                                    {% endif %}
-                                    value="{{ value | escape }}"
-                                    data-index="option{{option_position}}"
-                                    name="{{ option.name | handleize }}"
-                                    id="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
-                                  >
-                                  <label for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}">
-                                    {{ value }}
-                                  </label>
-                                {%- endfor -%}
-                              </fieldset>
-                            {% endfor %}
-                        </ec-product-variant>
-                    {% endunless %}
+                            <ec-product-variant>
+                                {% for option in block.settings.product.options_with_values %}
+                                    <label for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}">
+                                        {{ option.name }}
+                                    </label>
+                                    <fieldset>
+                                        {% assign option_position = forloop.index %}
+                                        {% for value in option.values %}
+                                            <input type="radio" 
+                                                   class="single-option-selector-{{ section.id }}" 
+                                                   name="option{{ option_position }}" 
+                                                   value="{{ value | escape }}" 
+                                                   data-index="option{{ option_position }}" 
+                                                   id="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
+                                                   {% if option.selected_value == value %} checked="checked" {% endif %}>
+                                            <label for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}">
+                                                {{ value }}
+                                            </label>
+                                        {% endfor %}
+                                    </fieldset>
+                                {% endfor %}
+                            </ec-product-variant>
+                        {% endunless %}
                     </div>
                 </div>
             </div>
