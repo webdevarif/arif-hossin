@@ -78,3 +78,23 @@
     text-decoration: none;
     cursor: pointer;
   }
+
+  .ec-modal__info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+    gap: 1rem;
+}
+
+.ec-modal__thumbnail {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.ec-modal__title {
+    margin: 0px 0px 10px 0px;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.5;
+}
