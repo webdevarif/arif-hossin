@@ -1,5 +1,7 @@
 {{ 'section-ec-featured-products.css' | asset_url | stylesheet_tag }}
 
+<script src="{{ 'section-ec-featured-products.js' | asset_url }}" defer="defer"></script>
+
 {%- style -%}
     .section-{{ section.id }}-padding {
         padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
@@ -27,57 +29,49 @@
 <div class="color-{{ section.settings.color_scheme }} section-{{ section.id }}-padding">
     <div class="ec-page-width">
 
-        <div class="ec-featured-product__grid">
+        <ec-featured-product class="ec-featured-product__grid">
             {% for block in section.blocks %}
-                <style>
-                    .ec-featured-product__item-pointer-{{ block.id }} {
-                        top: {{ block.settings.position_virtical | times: 1 | round: 0 }}%;
-                        left: {{ block.settings.position_horizontal | times: 1 | round: 0 }}%;
-                    }
-                </style>
-                <div class="ec-featured-product__item">
-                    <div class="ec-featured-product__item-thumbnail">
-                        {% assign primary_image = block.settings.product.featured_media.preview_image %}
-                        {% assign secondary_image = block.settings.product.media[1].preview_image %}
-                        {% assign image_to_show = primary_image ? primary_image : secondary_image %}
-
-                        {{ image_to_show | image_url: width: 1946 | image_tag: sizes: sizes, widths: widths }}
-
-                        <button class="ec-featured-product__item-pointer ec-featured-product__item-pointer-{{ block.id }}" type="button" onclick="openModal('{{ block.id }}')">
-                            <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <circle cx="11" cy="11" r="11" fill="#F8F8F8" fill-opacity="0.9"/>
-                                <path d="M11.3457 7.04175V15.5033" stroke="black" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="round"/>
-                                <path d="M7.11523 11.2725H15.5768" stroke="black" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="round"/>
-                            </svg>
-                        </button>
-                    </div>
+            <style>
+                .ec-featured-product__item-pointer-{{ block.id }} {
+                top: {{ block.settings.position_virtical | times: 1 | round: 0 }}%;
+                left: {{ block.settings.position_horizontal | times: 1 | round: 0 }}%;
+                }
+                .ec-modal.active {
+                display: block;
+                }
+            </style>
+            <div class="ec-featured-product__item">
+                <div class="ec-featured-product__item-thumbnail">
+                {% assign primary_image = block.settings.product.featured_media.preview_image %}
+                {% assign secondary_image = block.settings.product.media[1].preview_image %}
+                {% assign image_to_show = primary_image ? primary_image : secondary_image %}
+        
+                {{ image_to_show | image_url: width: 1946 | image_tag: sizes: sizes, widths: widths }}
+        
+                <button data-target="modal-{{ block.id }}" class="ec-featured-product__item-pointer ec-featured-product__item-pointer-{{ block.id }}" type="button">
+                    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="11" cy="11" r="11" fill="#F8F8F8" fill-opacity="0.9"/>
+                    <path d="M11.3457 7.04175V15.5033" stroke="black" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="round"/>
+                    <path d="M7.11523 11.2725H15.5768" stroke="black" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="round"/>
+                    </svg>
+                </button>
                 </div>
-
-                <div id="modal-{{ block.id }}" class="ec-modal">
-                    <div class="ec-modal-content">
-                        <span class="ec-modal-close" onclick="closeModal('{{ block.id }}')">&times;</span>
-                        <h2>{{ block.settings.product.title }}</h2>
-                        <img src="{{ image_to_show | image_url: width: 750 }}" alt="{{ block.settings.product.title }}">
-                    </div>
+            </div>
+        
+            <div id="modal-{{ block.id }}" class="ec-modal">
+                <div class="ec-modal-content">
+                <span class="ec-modal-close">&times;</span>
+                <h2>{{ block.settings.product.title }}</h2>
+                <img src="{{ image_to_show | image_url: width: 750 }}" alt="{{ block.settings.product.title }}">
                 </div>
+            </div>
             {% endfor %}
-
-        </div>
+        </ec-featured-product>
     </div>
 </div>
 
-<script>
-function openModal(id) {
-    document.getElementById('modal-' + id).style.display = 'block';
-}
-
-function closeModal(id) {
-    document.getElementById('modal-' + id).style.display = 'none';
-}
-</script>
-
 <style>
-.ec-modal {
+  .ec-modal {
     display: none;
     position: fixed;
     z-index: 1;
@@ -88,30 +82,31 @@ function closeModal(id) {
     overflow: auto;
     background-color: rgb(0,0,0);
     background-color: rgba(0,0,0,0.4);
-}
+  }
 
-.ec-modal-content {
+  .ec-modal-content {
     background-color: #fefefe;
     margin: 15% auto;
     padding: 20px;
     border: 1px solid #888;
     width: 80%;
-}
+  }
 
-.ec-modal-close {
+  .ec-modal-close {
     color: #aaa;
     float: right;
     font-size: 28px;
     font-weight: bold;
-}
+  }
 
-.ec-modal-close:hover,
-.ec-modal-close:focus {
+  .ec-modal-close:hover,
+  .ec-modal-close:focus {
     color: black;
     text-decoration: none;
     cursor: pointer;
-}
+  }
 </style>
+
 {% schema %}
     {
         "name": "Featured Products (EC)",
