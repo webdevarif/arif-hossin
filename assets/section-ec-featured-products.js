@@ -17,6 +17,7 @@ class ECFeaturedProduct extends HTMLElement {
   }
 
   toggleModal(event) {
+    alert("CLICKED");
     const targetModalId = event.currentTarget.getAttribute('data-target');
     const targetModal = document.getElementById(targetModalId);
     if (targetModal) {
