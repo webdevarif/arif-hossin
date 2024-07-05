@@ -57,6 +57,7 @@
     border: 1px solid #888;
     width: 90%;
     max-width: 450px;
+    position: relative;
   }
 
   @media ( min-width: 990px){
@@ -67,10 +68,18 @@
 
   .ec-modal-close {
     color: #aaa;
-    float: right;
+    position: absolute;
     font-size: 28px;
-    font-weight: bold;
-  }
+    font-weight: 700;
+    right: 10px;
+    top: 10px;
+    line-height: 1;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
   .ec-modal-close:hover,
   .ec-modal-close:focus {

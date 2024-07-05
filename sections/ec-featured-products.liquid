@@ -90,8 +90,8 @@
                                     {% if option.name == "Color" %}
                                         <div class="ec-modal__color-options">
                                             {% for value in option.values %}
-                                                <input type="checkbox" id="color{{ forloop.index }}" name="color" value="{{ value | escape }}">
-                                                <label for="color{{ forloop.index }}">{{ value }}</label>
+                                                <input type="ratio" id="color--{{ forloop.index }}" name="color" value="{{ value | escape }}">
+                                                <label for="color--{{ forloop.index }}">{{ value }}</label>
                                             {% endfor %}
                                         </div>
                                     {% else %}
