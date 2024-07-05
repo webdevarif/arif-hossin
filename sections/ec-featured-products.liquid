@@ -83,24 +83,14 @@
                         {% unless block.settings.product.has_only_default_variant %}
                             <ec-product-variant>
                                 {% for option in block.settings.product.options_with_values %}
-                                    <label for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}">
-                                        {{ option.name }}
-                                    </label>
-                                    <fieldset>
-                                        {% assign option_position = forloop.index %}
+                                    <label for="option{{ forloop.index }}">{{ option.name }}</label>
+                                    <select id="option{{ forloop.index }}" name="option{{ forloop.index }}" class="single-option-selector-{{ section.id }}">
                                         {% for value in option.values %}
-                                            <input type="radio" 
-                                                   class="single-option-selector-{{ section.id }}" 
-                                                   name="option{{ option_position }}" 
-                                                   value="{{ value | escape }}" 
-                                                   data-index="option{{ option_position }}" 
-                                                   id="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
-                                                   {% if option.selected_value == value %} checked="checked" {% endif %}>
-                                            <label for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}">
+                                            <option value="{{ value | escape }}" {% if option.selected_value == value %} selected {% endif %}>
                                                 {{ value }}
-                                            </label>
+                                            </option>
                                         {% endfor %}
-                                    </fieldset>
+                                    </select>
                                 {% endfor %}
                             </ec-product-variant>
                         {% endunless %}
