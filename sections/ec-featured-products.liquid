@@ -111,6 +111,9 @@
         toggleModal(event) {
             const targetModalId = event.currentTarget.getAttribute('data-target');
             const targetModal = document.getElementById(targetModalId);
+            console.log("TARGET MODAL ID", targetModalId);
+            console.log("TARGET MODAL", targetModal);
+            
             if (targetModal) {
                 targetModal.classList.toggle('active');
                 this.updateBodyClass();
