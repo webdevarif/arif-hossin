@@ -242,13 +242,7 @@
         }
     
         function addToCart(variantId, sectionId) {
-            fetch('/cart/add.js', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-Requested-With': 'XMLHttpRequest'
-                },
-                body: JSON.stringify({
+            let body = JSON.stringify({
                     items: [{
                         id: variantId,
                         quantity: 1,
@@ -256,19 +250,35 @@
                             'section-id': sectionId
                         }
                     }]
-                })
-            })
-            .then(response => response.json())
-            .then(data => {
-                // Handle success response
-                alert('Product added to cart!');
-                // Optionally update the cart count or display a success message
-            })
-            .catch(error => {
-                // Handle error
-                console.error('Error adding to cart:', error);
-                alert('Failed to add product to cart. Please try again.');
-            });
+                });
+                console.log('body ', body);
+            // fetch('/cart/add.js', {
+            //     method: 'POST',
+            //     headers: {
+            //         'Content-Type': 'application/json',
+            //         'X-Requested-With': 'XMLHttpRequest'
+            //     },
+            //     body: JSON.stringify({
+            //         items: [{
+            //             id: variantId,
+            //             quantity: 1,
+            //             properties: {
+            //                 'section-id': sectionId
+            //             }
+            //         }]
+            //     })
+            // })
+            // .then(response => response.json())
+            // .then(data => {
+            //     // Handle success response
+            //     alert('Product added to cart!');
+            //     // Optionally update the cart count or display a success message
+            // })
+            // .catch(error => {
+            //     // Handle error
+            //     console.error('Error adding to cart:', error);
+            //     alert('Failed to add product to cart. Please try again.');
+            // });
         }
     });
 {% endjavascript %}
