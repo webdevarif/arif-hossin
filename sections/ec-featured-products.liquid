@@ -137,7 +137,7 @@
         constructor() {
             super();
         }
-
+    
         connectedCallback() {
             this.productPointers = this.querySelectorAll('.ec-featured-product__item-pointer');
             if (this.productPointers) {
@@ -146,7 +146,7 @@
                 });
             }
         }
-
+    
         disconnectedCallback() {
             if (this.productPointers) {
                 this.productPointers.forEach(pointer => {
@@ -154,17 +154,17 @@
                 });
             }
         }
-
+    
         toggleModal(event) {
             const targetModalId = event.currentTarget.getAttribute('data-target');
             const targetModal = document.getElementById(targetModalId);
-
+    
             if (targetModal) {
                 targetModal.classList.toggle('active');
                 this.updateBodyClass();
             }
         }
-
+    
         updateBodyClass() {
             const anyModalOpen = document.querySelector('.ec-modal.active');
             if (anyModalOpen) {
@@ -174,9 +174,9 @@
             }
         }
     }
-
+    
     customElements.define('ec-featured-product', ECFeaturedProduct);
-
+    
     document.addEventListener('DOMContentLoaded', function () {
         document.querySelectorAll('.ec-modal-close').forEach(function (closeButton) {
             closeButton.addEventListener('click', function (event) {
@@ -187,14 +187,14 @@
                 }
             });
         });
-
+    
         document.querySelectorAll('.ec-modal__add-to-cart').forEach(function (addToCartButton) {
             addToCartButton.addEventListener('click', function (event) {
                 const modal = event.currentTarget.closest('.ec-modal');
                 if (modal) {
                     const productId = modal.getAttribute('data-product-id');
                     const variantId = getSelectedVariantId(modal);
-
+    
                     if (variantId) {
                         addToCart(variantId);
                     } else {
@@ -203,7 +203,7 @@
                 }
             });
         });
-
+    
         function updateBodyClass() {
             const anyModalOpen = document.querySelector('.ec-modal.active');
             if (anyModalOpen) {
@@ -212,15 +212,15 @@
                 document.body.classList.remove('open-product-modal');
             }
         }
-
+    
         function getSelectedVariantId(modal) {
             const variantSelectors = modal.querySelectorAll('.single-option-selector');
             const selectedOptions = Array.from(variantSelectors).map(selector => selector.value);
             let selectedVariantId = null;
-
-            // Fetch the variants from the product object. Adjust this part based on how you store product variants.
+    
+            // Fetch the variants from the data attribute
             const variants = JSON.parse(modal.getAttribute('data-variants'));
-
+    
             // Find the variant that matches the selected options
             variants.forEach(variant => {
                 const match = selectedOptions.every((option, index) => variant.options[index] === option);
@@ -228,10 +228,10 @@
                     selectedVariantId = variant.id;
                 }
             });
-
+    
             return selectedVariantId;
         }
-
+    
         function addToCart(variantId) {
             fetch('/cart/add.js', {
                 method: 'POST',
@@ -259,7 +259,7 @@
             });
         }
     });
-{% endjavascript %}
+    {% endjavascript %}
 
 
 {% schema %}
