@@ -230,11 +230,12 @@
             const variantSelectors = modal.querySelectorAll('.single-option-selector');
             let selectedVariantId = null;
 
-            console.log("variantSelectors ", variantSelectors)
+            console.log("variantSelectors ", variantSelectors);
 
             // Example logic assuming single option selector (select element)
             variantSelectors.forEach(function (selector) {
                 if (selector.value) {
+                    console.log("selectedVariantId ", select.value);
                     selectedVariantId = selector.value;
                 }
             });
