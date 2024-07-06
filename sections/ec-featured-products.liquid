@@ -186,45 +186,31 @@
             addToCartButton.addEventListener('click', function (event) {
                 event.preventDefault();
                 const modal = event.currentTarget.closest('.ec-modal');
-                console.log("MODAL", modal);
                 if (modal) {
-                    const modalForm = modal.closest('.ec-modal__form');
-
-                    var formData = new FormData(this);
-
-                    console.log("form Data", formData);
-                    
+                    const variantId = modal.querySelector('input[name="id"]').value;
+                    const quantity = modal.querySelector('#quantity').value;
+    
                     fetch('/cart/add.js', {
                         method: 'POST',
-                        body: formData
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            items: [{
+                                id: variantId,
+                                quantity: quantity
+                            }]
+                        })
                     })
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error('Network response was not ok');
-                        }
-                        // Optionally, you can handle the success response here
-                        // For example, show a success message
-                        console.log('Product added to cart successfully!');
+                    .then((resp) => resp.json())
+                    .then((data) => {
+                        document.documentElement.dispatchEvent(new CustomEvent('cart:refresh', {
+                            bubbles: true
+                        }));
                     })
-                    .catch(error => {
-                        // Handle error case
-                        // For example, show an error message
-                        console.error('There was a problem adding the product to the cart:', error);
+                    .catch((err) => {
+                        console.error('Error: ' + err);
                     });
-
-                    // const productId = modal.getAttribute('data-product-id');
-                    // const sectionId = modal.getAttribute('data-section-id');
-                    // const variantId = getSelectedVariantId(modal);
-
-                    // console.log("productId ", productId);
-                    // console.log("sectionId ", sectionId);
-                    // console.log("variantId ", variantId);
-    
-                    // if (variantId) {
-                    //     addToCart(variantId, sectionId);
-                    // } else {
-                    //     alert('Please select a variant option.');
-                    // }
                 }
             });
         });
@@ -236,86 +222,6 @@
             } else {
                 document.body.classList.remove('open-product-modal');
             }
-        }
-    
-        function getSelectedVariantId(modal) {
-            const variantSelectors = modal.querySelectorAll('.single-option-selector');
-            const selectedOptions = Array.from(variantSelectors).map(selector => selector.value);
-            console.log('Selected options:', selectedOptions);
-
-            let selectedVariantId = null;
-
-            // Fetch the variants from the data attribute
-            const variants = JSON.parse(modal.getAttribute('data-variants'));
-            console.log('Variants:', variants);
-
-            // Find the variant that matches the selected options
-            variants.forEach(variant => {
-                // Collect all option values in the variant into an array
-                const variantOptions = [variant.option1, variant.option2, variant.option3].filter(Boolean); // Filter out null values
-
-                // Check if the selected options array matches the variant options array
-                if (arraysAreEqual(selectedOptions, variantOptions)) {
-                    selectedVariantId = variant.id;
-                }
-            });
-
-            console.log('Selected variant ID:', selectedVariantId);
-            return selectedVariantId;
-        }
-
-        // Function to compare arrays
-        function arraysAreEqual(array1, array2) {
-            if (array1.length !== array2.length) {
-                return false;
-            }
-            for (let i = 0; i < array1.length; i++) {
-                if (array1[i] !== array2[i]) {
-                    return false;
-                }
-            }
-            return true;
-        }
-    
-        function addToCart(variantId, sectionId) {
-            let body = JSON.stringify({
-                    items: [{
-                        id: variantId,
-                        quantity: 1,
-                        properties: {
-                            'section-id': sectionId
-                        }
-                    }]
-                });
-            console.log('body ', body);
-
-            // fetch('/cart/add.js', {
-            //     method: 'POST',
-            //     headers: {
-            //         'Content-Type': 'application/json',
-            //         'X-Requested-With': 'XMLHttpRequest'
-            //     },
-            //     body: JSON.stringify({
-            //         items: [{
-            //             id: variantId,
-            //             quantity: 1,
-            //             properties: {
-            //                 'section-id': sectionId
-            //             }
-            //         }]
-            //     })
-            // })
-            // .then(response => response.json())
-            // .then(data => {
-            //     // Handle success response
-            //     alert('Product added to cart!');
-            //     // Optionally update the cart count or display a success message
-            // })
-            // .catch(error => {
-            //     // Handle error
-            //     console.error('Error adding to cart:', error);
-            //     alert('Failed to add product to cart. Please try again.');
-            // });
         }
     });
 {% endjavascript %}
