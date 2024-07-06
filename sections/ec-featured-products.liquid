@@ -228,7 +228,9 @@
                             modal.classList.remove('active');
                             updateBodyClass();
                         }
-                        alert("Added Product To Cart Successfully");
+                        setTimeout(() => {
+                            alert("Added Product To Cart Successfully"); 
+                        }, 1000);
                     })
                     .catch((err) => {
                         console.error('Error: ' + err);
