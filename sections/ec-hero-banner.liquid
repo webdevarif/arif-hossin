@@ -128,113 +128,9 @@ endif
             "label": "Desktop Image"
         },
         {
-            "type": "select",
-            "id": "desktop_image_height",
-            "options": [
-                {
-                    "value": "adapt",
-                    "label": "Adapt"
-                },
-                {
-                    "value": "small",
-                    "label": "Small"
-                },
-                {
-                    "value": "medium",
-                    "label": "Medium"
-                },
-                {
-                    "value": "large",
-                    "label": "Large"
-                }
-            ],
-            "default": "medium",
-            "label": "Image Height (Desktop)"
-        },
-        {
             "type": "image_picker",
             "id": "mobile_image",
             "label": "Mobile Image"
-        },
-        {
-            "type": "select",
-            "id": "mobile_image_height",
-            "options": [
-                {
-                    "value": "adapt",
-                    "label": "Adapt"
-                },
-                {
-                    "value": "small",
-                    "label": "Small"
-                },
-                {
-                    "value": "medium",
-                    "label": "Medium"
-                },
-                {
-                    "value": "large",
-                    "label": "Large"
-                }
-            ],
-            "default": "medium",
-            "label": "Image Height (Mobile)"
-        },
-        {
-            "type": "select",
-            "id": "desktop_content_position",
-            "options": [
-                { "value": "top-left", "label": "Top Left" },
-                { "value": "top-center", "label": "Top Center" },
-                { "value": "top-right", "label": "Top Right" },
-                { "value": "middle-left", "label": "Middle Left" },
-                { "value": "middle-center", "label": "Middle Center" },
-                { "value": "middle-right", "label": "Middle Right" },
-                { "value": "bottom-left", "label": "Bottom Left" },
-                { "value": "bottom-center", "label": "Bottom Center" },
-                { "value": "bottom-right", "label": "Bottom Right" }
-            ],
-            "default": "middle-center",
-            "label": "Content Position (Desktop)"
-        },
-        {
-            "type": "select",
-            "id": "mobile_content_position",
-            "options": [
-                { "value": "top-left", "label": "Top Left" },
-                { "value": "top-center", "label": "Top Center" },
-                { "value": "top-right", "label": "Top Right" },
-                { "value": "middle-left", "label": "Middle Left" },
-                { "value": "middle-center", "label": "Middle Center" },
-                { "value": "middle-right", "label": "Middle Right" },
-                { "value": "bottom-left", "label": "Bottom Left" },
-                { "value": "bottom-center", "label": "Bottom Center" },
-                { "value": "bottom-right", "label": "Bottom Right" }
-            ],
-            "default": "middle-center",
-            "label": "Content Position (Mobile)"
-        },
-        {
-            "type": "select",
-            "id": "desktop_content_alignment",
-            "options": [
-                { "value": "left", "label": "Left" },
-                { "value": "center", "label": "Center" },
-                { "value": "right", "label": "Right" }
-            ],
-            "default": "center",
-            "label": "Content Alignment (Desktop)"
-        },
-        {
-            "type": "select",
-            "id": "mobile_content_alignment",
-            "options": [
-                { "value": "left", "label": "Left" },
-                { "value": "center", "label": "Center" },
-                { "value": "right", "label": "Right" }
-            ],
-            "default": "center",
-            "label": "Content Alignment (Mobile)"
         },
         {
             "type": "header",
@@ -261,7 +157,37 @@ endif
             "default": 20
         }
     ],
-    "blocks": [],
+    "blocks": [
+        {
+            "type": "heading",
+            "name": "Heading",
+            "settings": [
+                {
+                    "type": "inline_richtext",
+                    "id": "heading",
+                    "label": "Heading",
+                    "default": "The Gift Guide"
+                },
+                {
+                    "type": "richtext",
+                    "id": "content",
+                    "label": "Content",
+                    "default": "<p>Discover Joy: Your Ultimate Holiday Gift Destination. Explore our curated selection and find the perfect gifts to delight your loved ones this holiday season.</p>"
+                },
+                {
+                    "type": "text",
+                    "id": "button_label",
+                    "label": "Button Label",
+                    "default": "Shop Now"
+                },
+                {
+                    "type": "url",
+                    "id": "button_link",
+                    "label": "Button Link"
+                }
+            ]
+        }
+    ],
     "presets": [
         {
             "name": "Hero Banner(EC)"
