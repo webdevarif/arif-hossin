@@ -31,6 +31,7 @@
 
         <ec-featured-product class="ec-featured-product__grid">
             {% for block in section.blocks %}
+            {%- assign product = block.settings.product -%}
             <style>
                 .ec-featured-product__item-pointer-{{ block.id }} {
                 top: {{ block.settings.position_virtical | times: 1 | round: 0 }}%;
@@ -42,8 +43,8 @@
             </style>
             <div class="ec-featured-product__item">
                 <div class="ec-featured-product__item-thumbnail">
-                {% assign primary_image = block.settings.product.featured_media.preview_image %}
-                {% assign secondary_image = block.settings.product.media[1].preview_image %}
+                {% assign primary_image = product.featured_media.preview_image %}
+                {% assign secondary_image = product.media[1].preview_image %}
                 {%- if primary_image  -%}
                     {% assign image_to_show = primary_image %}      
                 {%- else -%}
@@ -62,24 +63,24 @@
                 </div>
             </div>
 
-            <div id="modal-{{ block.id }}" class="ec-modal" data-product-id="{{ block.settings.product.id }}" data-variants='{{ block.settings.product.variants | json }}' data-section-id="{{ section.id }}">
+            <div id="modal-{{ block.id }}" class="ec-modal" data-product-id="{{ product.id }}" data-variants='{{ product.variants | json }}' data-section-id="{{ section.id }}">
                 <div class="ec-modal__wrapper">
                     <div class="ec-modal__content">
                         <span class="ec-modal-close">X</span>
                         <div class="ec-modal__info">
                             <div>
-                                <img class="ec-modal__thumbnail" src="{{ image_to_show | image_url: width: 750 }}" alt="{{ block.settings.product.title }}">
+                                <img class="ec-modal__thumbnail" src="{{ image_to_show | image_url: width: 750 }}" alt="{{ product.title }}">
                             </div>
                             <div>
-                                <h2 class="ec-modal__title">{{ block.settings.product.title }}</h2>
-                                <div class="ec-modal__price">{{ block.settings.product.price | money_with_currency }}</div>
-                                <div class="ec-modal__description">{{ block.settings.product.description }}</div>
+                                <h2 class="ec-modal__title">{{ product.title }}</h2>
+                                <div class="ec-modal__price">{{ product.price | money_with_currency }}</div>
+                                <div class="ec-modal__description">{{ product.description }}</div>
                             </div>
                         </div>
-                        {% unless block.settings.product.has_only_default_variant %}
+                        {% unless product.has_only_default_variant %}
                         <ec-product-variant>
                             <div class="ec-product-variant">
-                                {% for option in block.settings.product.options_with_values %}
+                                {% for option in product.options_with_values %}
                                 <div class="ec-product-variant__item">
                                     <label class="ec-product-variant__label" for="option{{ forloop.index }}">{{ option.name }}</label>
                                     {% if option.name == "Color" %}
@@ -111,26 +112,11 @@
                             </div>
                         </ec-product-variant>
                         {% endunless %}
-                        <form method="post" action="/cart/add" accept-charset="UTF-8" class="form" enctype="multipart/form-data" novalidate="novalidate" data-type="add-to-cart-form">
-                            <input type="hidden" name="form_type" value="product">
-                            <input type="hidden" name="utf8" value="✓">
-                            <input type="hidden" name="id" class="product-variant-id">
-                            <div class="product-form__buttons">
-                                <button class="ec-modal__add-to-cart ec-button__primary" type="button">
-                                    <span>Add to Cart</span>
-                                </button>
-                                <button type="submit" name="add" class="product-form__submit button button--full-width button--secondary">
-                                    <span>Add to cart</span>
-                                    <div class="loading__spinner hidden">
-                                        <svg aria-hidden="true" focusable="false" class="spinner" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
-                                            <circle class="path" fill="none" stroke-width="6" cx="33" cy="33" r="30"></circle>
-                                        </svg>
-                                    </div>
-                                </button>
-                            </div>
-                            <input type="hidden" name="product-id" value="{{ block.settings.product.id }}">
-                            <input type="hidden" name="section-id" value="{{ section.id }}">
-                        </form>
+                        <form method="post" action="/cart/add">
+                            <input type="hidden" name="id" value="{{ product.variants.first.id }}" />
+                            <input min="1" type="hidden" id="quantity" name="quantity" value="1"/>
+                            <input type="submit" value="ADD TO CART" class="add-to-cart-button" />
+                      </form>
                     </div>
                 </div>
             </div>
