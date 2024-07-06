@@ -110,6 +110,9 @@
                                     {% else %}
                                     <div class="form--select">
                                         <select id="option-{{ block.id }}-{{ forloop.index }}" name="option{{ forloop.index }}" class="single-option-selector single-option-selector-{{ block.id }}">
+                                            <option value="">
+                                                Choose your {{ option.name }}
+                                            </option>
                                             {% for value in option.values %}
                                                 <option value="{{ value | escape }}" {% if option.selected_value == value %} selected {% endif %}>
                                                     {{ value }}
