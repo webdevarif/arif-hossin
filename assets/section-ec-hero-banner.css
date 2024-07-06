@@ -13,7 +13,7 @@
     width: 100%;
     max-width: 640px;
     padding: 20px 2rem;
-    font-size: 16px;
+    font-size: 13px;
     color: #000;
     line-height: 1.5;
 }
@@ -22,14 +22,18 @@
     .ec-banner__content {
         position: absolute;
         bottom: 0;
-        font-size: 20px;
         padding: 20px 5rem;
+    }
+}
+@media (min-width: 1399px){
+    .ec-banner__content {
+        font-size: 20px;
     }
 }
 
 .ec-banner__content h1 {
     margin-top: 0px;
-    font-size: min(max(4rem, 10vw), 84px);
+    font-size: min(max(4rem,5vw),93px);
     font-weight: 700;
     margin-bottom: 15px;
 }
