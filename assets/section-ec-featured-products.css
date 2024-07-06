@@ -135,8 +135,9 @@ label.ec-product-variant__label {
 .ec-modal__color-options-item {flex-grow: 1;}
 
 .ec-modal__color-options {
-    display: flex;
+    display: grid;
     row-gap: 10px;
+    grid-template-columns: 1fr 1fr;
 }
 
 .ec-modal__color-options-item label {
