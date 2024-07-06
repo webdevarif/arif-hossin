@@ -41,6 +41,7 @@ body{
     background-color: rgba(var(--color-button),var(--alpha-button-background));
     text-transform: uppercase;
     gap: 10px;
+    white-space: nowrap;
 }
 .ec-button__icon{
     width: 26px;
