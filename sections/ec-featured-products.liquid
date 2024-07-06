@@ -88,7 +88,7 @@
                                     <div class="ec-modal__color-options">
                                         {% for value in option.values %}
                                         <div class="ec-modal__color-options-item">
-                                            <input type="radio" class="single-option-selector single-option-selector-{{ block.id }}" name="option-{{ block.id }}-{{ option_position }}" value="{{ value | escape }}" data-index="option{{ option_position }}" id="{{ block.id }}-{{ option.position }}-{{ forloop.index0 }}" {% if option.selected_value == value %} checked="checked" {% endif %}>
+                                            <input type="radio" class="single-option-selector single-option-selector-{{ block.id }}" name="option-{{ block.id }}-{{ option_position }}" value="{{ value | escape }}" data-index="option{{ option_position }}" data-option-value-id="{{ option.variant_id  }}" id="{{ block.id }}-{{ option.position }}-{{ forloop.index0 }}" {% if option.selected_value == value %} checked="checked" {% endif %}>
                                             <label for="{{ block.id }}-{{ option.position }}-{{ forloop.index0 }}">
                                                 {{ value }}
                                             </label>
@@ -100,7 +100,7 @@
                                         <select id="option-{{ block.id }}-{{ forloop.index }}" name="option{{ forloop.index }}" class="single-option-selector single-option-selector-{{ block.id }}">
                                             <option value="">Choose your {{ option.name }}</option>
                                             {% for value in option.values %}
-                                            <option value="{{ value | escape }}" {% if option.selected_value == value %} selected {% endif %}>
+                                            <option value="{{ value | escape }}"  data-option-value-id="{{ option.variant_id  }}" {% if option.selected_value == value %} selected {% endif %}>
                                                 {{ value }}
                                             </option>
                                             {% endfor %}
@@ -170,35 +170,29 @@
     }
     
     customElements.define('ec-featured-product', ECFeaturedProduct);
-
+    
     document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('.ec-modal-close').forEach(function (closeButton) {
+            closeButton.addEventListener('click', function (event) {
+                const modal = event.currentTarget.closest('.ec-modal');
+                if (modal) {
+                    modal.classList.remove('active');
+                    updateBodyClass();
+                }
+            });
+        });
+    
         document.querySelectorAll('.ec-modal__add-to-cart').forEach(function (addToCartButton) {
             addToCartButton.addEventListener('click', function (event) {
                 event.preventDefault();
                 const modal = event.currentTarget.closest('.ec-modal');
                 if (modal) {
-                    const variantIdInput = modal.querySelector('input[name="id"]');
-                    const quantityInput = modal.querySelector('#quantity');
-                    
-                    // Update variantId and quantity based on selected options
-                    const selectedOptions = modal.querySelectorAll('.single-option-selector');
-                    let selectedVariantId = null;
+                    const variantId = modal.querySelector('input[name="id"]').value;
+                    const quantity = modal.querySelector('#quantity').value;
 
-                    selectedOptions.forEach(option => {
-                        if (option.checked || option.selected) {
-                            selectedVariantId = option.value;
-                        }
-                    });
-
-                    if (!selectedVariantId) {
-                        alert('Please select a product variant.');
-                        return;
-                    }
-
-                    variantIdInput.value = selectedVariantId;
-                    quantityInput.value = 1; // Assuming quantity is always 1, you can adjust this as needed
-
-                    // Fetch request to add to cart
+                    console.log("variantId", variantId);
+                    console.log("quantity", quantity);
+    
                     fetch('/cart/add.js', {
                         method: 'POST',
                         headers: {
@@ -206,8 +200,8 @@
                         },
                         body: JSON.stringify({
                             items: [{
-                                id: variantIdInput.value,
-                                quantity: quantityInput.value
+                                id: variantId,
+                                quantity: quantity
                             }]
                         })
                     })
@@ -223,65 +217,16 @@
                 }
             });
         });
+    
+        function updateBodyClass() {
+            const anyModalOpen = document.querySelector('.ec-modal.active');
+            if (anyModalOpen) {
+                document.body.classList.add('open-product-modal');
+            } else {
+                document.body.classList.remove('open-product-modal');
+            }
+        }
     });
-
-    
-    // document.addEventListener('DOMContentLoaded', function () {
-    //     document.querySelectorAll('.ec-modal-close').forEach(function (closeButton) {
-    //         closeButton.addEventListener('click', function (event) {
-    //             const modal = event.currentTarget.closest('.ec-modal');
-    //             if (modal) {
-    //                 modal.classList.remove('active');
-    //                 updateBodyClass();
-    //             }
-    //         });
-    //     });
-    
-    //     document.querySelectorAll('.ec-modal__add-to-cart').forEach(function (addToCartButton) {
-    //         addToCartButton.addEventListener('click', function (event) {
-    //             event.preventDefault();
-    //             const modal = event.currentTarget.closest('.ec-modal');
-    //             if (modal) {
-    //                 const variantId = modal.querySelector('input[name="id"]').value;
-    //                 const quantity = modal.querySelector('#quantity').value;
-
-    //                 console.log("variantId", variantId);
-    //                 console.log("quantity", quantity);
-    
-    //                 fetch('/cart/add.js', {
-    //                     method: 'POST',
-    //                     headers: {
-    //                         'Content-Type': 'application/json'
-    //                     },
-    //                     body: JSON.stringify({
-    //                         items: [{
-    //                             id: variantId,
-    //                             quantity: quantity
-    //                         }]
-    //                     })
-    //                 })
-    //                 .then((resp) => resp.json())
-    //                 .then((data) => {
-    //                     document.documentElement.dispatchEvent(new CustomEvent('cart:refresh', {
-    //                         bubbles: true
-    //                     }));
-    //                 })
-    //                 .catch((err) => {
-    //                     console.error('Error: ' + err);
-    //                 });
-    //             }
-    //         });
-    //     });
-    
-    //     function updateBodyClass() {
-    //         const anyModalOpen = document.querySelector('.ec-modal.active');
-    //         if (anyModalOpen) {
-    //             document.body.classList.add('open-product-modal');
-    //         } else {
-    //             document.body.classList.remove('open-product-modal');
-    //         }
-    //     }
-    // });
 {% endjavascript %}
     
 
