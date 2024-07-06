@@ -21,6 +21,12 @@
     .ec-banner__content {
         text-align: center;
     }
+    .ec-banner__content-button{
+        position: absolute;
+        bottom: 20%;
+        left: 50%;
+        transform: translateX(-50%);
+    }
 }
 @media (min-width: 990px){
     .ec-banner__content {
