@@ -223,6 +223,12 @@
                         document.documentElement.dispatchEvent(new CustomEvent('cart:refresh', {
                             bubbles: true
                         }));
+                        const modal = document.querySelector('.ec-modal.active');
+                        if (modal) {
+                            modal.classList.remove('active');
+                            updateBodyClass();
+                        }
+                        alert("Added Product To Cart Successfully");
                     })
                     .catch((err) => {
                         console.error('Error: ' + err);
