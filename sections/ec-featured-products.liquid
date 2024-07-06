@@ -62,7 +62,7 @@
                 </div>
             </div>
 
-            <div id="modal-{{ block.id }}" class="ec-modal" data-product-id="{{ block.settings.product.id }}" data-variants='{{ block.settings.product.variants | json }}' data-section-id="{{ block.section.id }}">
+            <div id="modal-{{ block.id }}" class="ec-modal" data-product-id="{{ block.settings.product.id }}" data-variants='{{ block.settings.product.variants | json }}' data-section-id="{{ section.id }}">
                 <div class="ec-modal__wrapper">
                     <div class="ec-modal__content">
                         <span class="ec-modal-close">X</span>
@@ -129,7 +129,7 @@
                                 </button>
                             </div>
                             <input type="hidden" name="product-id" value="{{ block.settings.product.id }}">
-                            <input type="hidden" name="section-id" value="{{ block.section.id }}">
+                            <input type="hidden" name="section-id" value="{{ section.id }}">
                         </form>
                     </div>
                 </div>
