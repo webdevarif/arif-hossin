@@ -129,7 +129,7 @@
                                 </button>
                             </div>
                             <input type="hidden" name="product-id" value="{{ block.settings.product.id }}">
-                            <input type="hidden" name="section-id" value="{{ block.id }}">
+                            <input type="hidden" name="section-id" value="{{ block.section.id }}">
                         </form>
                     </div>
                 </div>
@@ -203,6 +203,10 @@
                     const productId = modal.getAttribute('data-product-id');
                     const sectionId = modal.getAttribute('data-section-id');
                     const variantId = getSelectedVariantId(modal);
+
+                    console.log("productId ", productId);
+                    console.log("sectionId ", sectionId);
+                    console.log("variantId ", variantId);
     
                     if (variantId) {
                         addToCart(variantId, sectionId);
@@ -251,7 +255,8 @@
                         }
                     }]
                 });
-                console.log('body ', body);
+            console.log('body ', body);
+
             // fetch('/cart/add.js', {
             //     method: 'POST',
             //     headers: {
