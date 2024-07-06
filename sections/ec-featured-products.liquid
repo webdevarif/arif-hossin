@@ -88,7 +88,7 @@
                                     <div class="ec-modal__color-options">
                                         {% for value in option.values %}
                                         <div class="ec-modal__color-options-item">
-                                            <input type="radio" class="single-option-selector single-option-selector-{{ block.id }}" name="option-{{ block.id }}-{{ option_position }}" value="{{ value | escape }}" data-index="option{{ option_position }}" data-option-value-id="{{ option.variant_id  }}" id="{{ block.id }}-{{ option.position }}-{{ forloop.index0 }}" {% if option.selected_value == value %} checked="checked" {% endif %}>
+                                            <input type="radio" class="single-option-selector single-option-selector-{{ block.id }}" name="option-{{ block.id }}-{{ option_position }}" value="{{ value | escape }}" data-index="option{{ option_position }}" data-option-value-id="{{ value.id }}" id="{{ block.id }}-{{ option.position }}-{{ forloop.index0 }}" {% if option.selected_value == value %} checked="checked" {% endif %}>
                                             <label for="{{ block.id }}-{{ option.position }}-{{ forloop.index0 }}">
                                                 {{ value }}
                                             </label>
@@ -100,7 +100,7 @@
                                         <select id="option-{{ block.id }}-{{ forloop.index }}" name="option{{ forloop.index }}" class="single-option-selector single-option-selector-{{ block.id }}">
                                             <option value="">Choose your {{ option.name }}</option>
                                             {% for value in option.values %}
-                                            <option value="{{ value | escape }}"  data-option-value-id="{{ option.variant_id  }}" {% if option.selected_value == value %} selected {% endif %}>
+                                            <option value="{{ value | escape }}"  data-option-value-id="{{ value.id }}" {% if option.selected_value == value %} selected {% endif %}>
                                                 {{ value }}
                                             </option>
                                             {% endfor %}
