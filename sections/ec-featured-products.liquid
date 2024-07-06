@@ -229,10 +229,12 @@
         function getSelectedVariantId(modal) {
             const variantSelectors = modal.querySelectorAll('.single-option-selector');
             const selectedOptions = Array.from(variantSelectors).map(selector => selector.value);
+            console.log('Selected options:', selectedOptions); // Debugging
             let selectedVariantId = null;
     
             // Fetch the variants from the data attribute
             const variants = JSON.parse(modal.getAttribute('data-variants'));
+            console.log('Variants:', variants); // Debugging
     
             // Find the variant that matches the selected options
             variants.forEach(variant => {
@@ -242,6 +244,7 @@
                 }
             });
     
+            console.log('Selected variant ID:', selectedVariantId); // Debugging
             return selectedVariantId;
         }
     
