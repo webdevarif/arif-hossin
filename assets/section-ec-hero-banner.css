@@ -42,7 +42,7 @@
     }
 }
 
-.ec-banner__content h1 {
+.ec-banner__content-heading {
     margin-top: 0px;
     font-size: min(max(4rem,5vw),96px);
     font-weight: 700;
