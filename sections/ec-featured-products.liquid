@@ -244,22 +244,23 @@
                 quantity: 1,
                 id: variantId
             }));
+            console.log("Form Data", formData);
 
-            fetch(`/cart/add.js?id=${productId}&quantity=1`, {
-                method: 'POST',
-                body: formData
-            })
-            .then(response => response.json())
-            .then(data => {
-                // Handle success response
-                alert('Product added to cart!');
-                // Optionally update the cart count or display a success message
-            })
-            .catch(error => {
-                // Handle error
-                console.error('Error adding to cart:', error);
-                alert('Failed to add product to cart. Please try again.');
-            });
+            //fetch(`/cart/add.js?id=${productId}&quantity=1`, {
+            //    method: 'POST',
+            //    body: formData
+            //})
+            //.then(response => response.json())
+            //.then(data => {
+            //    // Handle success response
+            //    alert('Product added to cart!');
+            //    // Optionally update the cart count or display a success message
+            //})
+            //.catch(error => {
+            //    // Handle error
+            //    console.error('Error adding to cart:', error);
+            //    alert('Failed to add product to cart. Please try again.');
+            //});
         }
     });
 {% endjavascript %}
