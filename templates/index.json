@@ -11,16 +11,36 @@
   "sections": {
     "ec_hero_banner_m9QeW3": {
       "type": "ec-hero-banner",
+      "blocks": {
+        "heading_cbHEGC": {
+          "type": "heading",
+          "settings": {
+            "heading": "The Gift Guide"
+          }
+        },
+        "description_TGC9Hf": {
+          "type": "description",
+          "settings": {
+            "content": "<p>Discover Joy: Your Ultimate Holiday Gift Destination. Explore our curated selection and find the perfect gifts to delight your loved ones this holiday season.<\/p>"
+          }
+        },
+        "button_mKhkcR": {
+          "type": "button",
+          "settings": {
+            "button_label": "Shop Now",
+            "button_link": "#"
+          }
+        }
+      },
+      "block_order": [
+        "heading_cbHEGC",
+        "description_TGC9Hf",
+        "button_mKhkcR"
+      ],
       "settings": {
-        "color_scheme": "",
+        "color_scheme": "scheme-3",
         "desktop_image": "shopify:\/\/shop_images\/hero-banner-desktop.png",
-        "desktop_image_height": "adapt",
         "mobile_image": "shopify:\/\/shop_images\/mobile.png",
-        "mobile_image_height": "medium",
-        "desktop_content_position": "middle-center",
-        "mobile_content_position": "middle-center",
-        "desktop_content_alignment": "center",
-        "mobile_content_alignment": "center",
         "padding_top": 20,
         "padding_bottom": 20
       }
