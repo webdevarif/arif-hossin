@@ -189,6 +189,9 @@
                 if (modal) {
                     const variantId = modal.querySelector('input[name="id"]').value;
                     const quantity = modal.querySelector('#quantity').value;
+
+                    console.log("variantId", variantId);
+                    console.log("quantity", quantity);
     
                     fetch('/cart/add.js', {
                         method: 'POST',
