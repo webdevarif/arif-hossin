@@ -229,23 +229,40 @@
         function getSelectedVariantId(modal) {
             const variantSelectors = modal.querySelectorAll('.single-option-selector');
             const selectedOptions = Array.from(variantSelectors).map(selector => selector.value);
-            console.log('Selected options:', selectedOptions); // Debugging
+            console.log('Selected options:', selectedOptions);
+
             let selectedVariantId = null;
-    
+
             // Fetch the variants from the data attribute
             const variants = JSON.parse(modal.getAttribute('data-variants'));
-            console.log('Variants:', variants); // Debugging
-    
+            console.log('Variants:', variants);
+
             // Find the variant that matches the selected options
             variants.forEach(variant => {
-                const match = selectedOptions.every((option, index) => variant.options[index] === option);
-                if (match) {
+                // Collect all option values in the variant into an array
+                const variantOptions = [variant.option1, variant.option2, variant.option3].filter(Boolean); // Filter out null values
+
+                // Check if the selected options array matches the variant options array
+                if (arraysAreEqual(selectedOptions, variantOptions)) {
                     selectedVariantId = variant.id;
                 }
             });
-    
-            console.log('Selected variant ID:', selectedVariantId); // Debugging
+
+            console.log('Selected variant ID:', selectedVariantId);
             return selectedVariantId;
+        }
+
+        // Function to compare arrays
+        function arraysAreEqual(array1, array2) {
+            if (array1.length !== array2.length) {
+                return false;
+            }
+            for (let i = 0; i < array1.length; i++) {
+                if (array1[i] !== array2[i]) {
+                    return false;
+                }
+            }
+            return true;
         }
     
         function addToCart(variantId, sectionId) {
