@@ -63,7 +63,7 @@
                 </div>
             </div>
 
-            <div id="modal-{{ block.id }}" class="ec-modal" data-product-id="{{ product.id }}" data-variants='{{ product.variants | json }}' data-section-id="{{ section.id }}">
+            <div id="modal-{{ block.id }}" class="ec-modal" data-product-id="{{ product.id }}">
                 <div class="ec-modal__wrapper">
                     <div class="ec-modal__content">
                         <span class="ec-modal-close">X</span>
@@ -189,8 +189,28 @@
                 console.log("MODAL", modal);
                 if (modal) {
                     const modalForm = modal.closest('.ec-modal__form');
+
+                    var formData = new FormData(this);
+
+                    console.log("form Data", formData);
                     
-                    console.log("modalForm", modalForm);
+                    fetch('/cart/add.js', {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        // Optionally, you can handle the success response here
+                        // For example, show a success message
+                        console.log('Product added to cart successfully!');
+                    })
+                    .catch(error => {
+                        // Handle error case
+                        // For example, show an error message
+                        console.error('There was a problem adding the product to the cart:', error);
+                    });
 
                     // const productId = modal.getAttribute('data-product-id');
                     // const sectionId = modal.getAttribute('data-section-id');
