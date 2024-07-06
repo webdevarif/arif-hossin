@@ -28,6 +28,7 @@ endif
     class="ec-hero-banner color-{{ section.settings.color_scheme }}"
     id="Banner-{{ section.id }}"
 >
+<div class="ec-hero-banner__wrapper">
     <div class="ec-banner__content">
         {%- for block in section.blocks -%}
             {%- case block.type -%}
@@ -116,7 +117,7 @@ endif
     {%- else -%}
     {{ 'hero-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
     {%- endif -%}
-
+    </div>
     {%- if section.settings.footer_text !=blank -%}
         <div class="ec-banner__footer">
             {{ section.settings.footer_text  }}
