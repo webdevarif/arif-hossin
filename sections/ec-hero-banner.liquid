@@ -116,6 +116,12 @@ endif
     {%- else -%}
     {{ 'hero-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
     {%- endif -%}
+
+    {%- if section.settings.footer_text !=blank -%}
+        <div class="ec-banner__footer">
+            {{ section.settings.footer_text  }}
+        </div> 
+    {%- endif -%}
 </div>
 
 {% schema %}
@@ -140,6 +146,12 @@ endif
             "type": "image_picker",
             "id": "mobile_image",
             "label": "Mobile Image"
+        },
+        {
+            "type": "inline_richtext",
+            "id": "footer_text",
+            "label": "Footer Text",
+            "default": "SUSTAINABLE, ETHICALLY MADE CLOTHES IN SIZES XXS TO 6XL"
         },
         {
             "type": "header",
