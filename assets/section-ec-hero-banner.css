@@ -17,6 +17,11 @@
     line-height: 1.5;
 }
 
+@media (max-width: 889.98px){
+    .ec-banner__content {
+        text-align: center;
+    }
+}
 @media (min-width: 990px){
     .ec-banner__content {
         position: absolute;
