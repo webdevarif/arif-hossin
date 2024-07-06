@@ -1,3 +1,6 @@
+.ec-hero-banner__media{
+    display: flex;
+}
 .ec-hero-banner__wrapper {
     position: relative;
 }
