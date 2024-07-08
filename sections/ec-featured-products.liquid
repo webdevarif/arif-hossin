@@ -1,0 +1,337 @@
+{{ 'section-ec-featured-products.css' | asset_url | stylesheet_tag }}
+
+<script src="{{ 'section-ec-featured-products.js' | asset_url }}" defer="defer"></script>
+
+{%- style -%}
+    .section-{{ section.id }}-padding {
+        padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+        padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+    }
+    
+    @media screen and (min-width: 750px) {
+        .section-{{ section.id }}-padding {
+            padding-top: {{ section.settings.padding_top }}px;
+            padding-bottom: {{ section.settings.padding_bottom }}px;
+        }
+    }
+    {%- endstyle -%}
+
+{%- liquid
+    assign sizes = '750'
+    assign widths = '375, 550, 750, 1100, 1500, 1780, 2000, 3000, 3840'
+
+    assign fetch_priority = 'auto'
+    if section.index == 1
+    assign fetch_priority = 'high'
+    endif
+-%}
+
+<div class="color-{{ section.settings.color_scheme }} section-{{ section.id }}-padding">
+    <div class="ec-page-width">
+
+        <ec-featured-product class="ec-featured-product__grid">
+            {% for block in section.blocks %}
+            {%- assign product = block.settings.product -%}
+            <style>
+                .ec-featured-product__item-pointer-{{ block.id }} {
+                top: {{ block.settings.position_virtical | times: 1 | round: 0 }}%;
+                left: {{ block.settings.position_horizontal | times: 1 | round: 0 }}%;
+                }
+                .ec-modal.active {
+                display: block;
+                }
+            </style>
+            <div class="ec-featured-product__item">
+                <div class="ec-featured-product__item-thumbnail">
+                {% assign primary_image = product.featured_media.preview_image %}
+                {% assign secondary_image = product.media[1].preview_image %}
+                {%- if primary_image  -%}
+                    {% assign image_to_show = primary_image %}      
+                {%- else -%}
+                    {% assign image_to_show = secondary_image %}
+                {%- endif -%}
+        
+                {{ image_to_show | image_url: width: 1946 | image_tag: sizes: sizes, widths: widths }}
+        
+                <button data-target="modal-{{ block.id }}" class="ec-featured-product__item-pointer ec-featured-product__item-pointer-{{ block.id }}" type="button">
+                    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="11" cy="11" r="11" fill="#F8F8F8" fill-opacity="0.9"/>
+                    <path d="M11.3457 7.04175V15.5033" stroke="black" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="round"/>
+                    <path d="M7.11523 11.2725H15.5768" stroke="black" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="round"/>
+                    </svg>
+                </button>
+                </div>
+            </div>
+
+            <div id="modal-{{ block.id }}" class="ec-modal" data-product-id="{{ product.id }}">
+                <div class="ec-modal__wrapper">
+                    <div class="ec-modal__content">
+                        <span class="ec-modal-close">
+                            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M5.03784 4.94354L13.5231 13.4288" stroke="black" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="round"/>
+                                <path d="M5.03784 13.4285L13.5231 4.94325" stroke="black" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="round"/>
+                            </svg>
+                        </span>
+                        <div class="ec-modal__info">
+                            <div>
+                                <img class="ec-modal__thumbnail" src="{{ image_to_show | image_url: width: 750 }}" alt="{{ product.title }}">
+                            </div>
+                            <div>
+                                <h2 class="ec-modal__title">{{ product.title }}</h2>
+                                <div class="ec-modal__price">{{ product.price | money_with_currency }}</div>
+                                <div class="ec-modal__description">{{ product.description }}</div>
+                            </div>
+                        </div>
+                        {% unless product.has_only_default_variant %}
+                        <ec-product-variant>
+                            <div class="ec-product-variant">
+                                {% for option in product.options_with_values %}
+                                <div class="ec-product-variant__item">
+                                    <label class="ec-product-variant__label" for="option{{ forloop.index }}">{{ option.name }}</label>
+                                    {% if option.name == "Color" %}
+                                    {% assign option_position = forloop.index %}
+                                    <div class="ec-modal__color-options">
+                                        {% for value in option.values %}
+                                        <div class="ec-modal__color-options-item">
+                                            <input type="radio" class="single-option-selector single-option-selector-{{ block.id }}" name="option-{{ block.id }}-{{ option_position }}" value="{{ value | escape }}" data-index="option{{ option_position }}" data-option-value-id="{{ value.id }}" id="{{ block.id }}-{{ option.position }}-{{ forloop.index0 }}" {% if option.selected_value == value %} checked="checked" {% endif %}>
+                                            <label for="{{ block.id }}-{{ option.position }}-{{ forloop.index0 }}">
+                                                {{ value }}
+                                            </label>
+                                        </div>
+                                        {% endfor %}
+                                    </div>
+                                    {% else %}
+                                    <div class="form--select">
+                                        <select id="option-{{ block.id }}-{{ forloop.index }}" name="option{{ forloop.index }}" class="single-option-selector single-option-selector-{{ block.id }}">
+                                            <option value="">Choose your {{ option.name }}</option>
+                                            {% for value in option.values %}
+                                            <option value="{{ value | escape }}"  data-option-value-id="{{ value.id }}" {% if option.selected_value == value %} selected {% endif %}>
+                                                {{ value }}
+                                            </option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </ec-product-variant>
+                        {% endunless %}
+                        <form method="post" action="/cart/add" class="ec-modal__form">
+                            <input type="hidden" name="id" value="{{ product.variants.first.id }}" />
+                            <input min="1" type="hidden" id="quantity" name="quantity" value="1"/>
+                            
+                            <button class="ec-modal__add-to-cart ec-button__primary" type="submit">
+                                <span>Add to Cart</span>
+                                <span class="ec-button__icon">
+                                <svg width="26" height="12" viewBox="0 0 26 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M1.22205 4.80469L0.472046 4.80469L0.472046 6.30469L1.22205 6.30469L1.22205 4.80469ZM25.7524 6.08502C26.0453 5.79213 26.0453 5.31725 25.7524 5.02436L20.9794 0.251388C20.6865 -0.0415053 20.2116 -0.0415053 19.9187 0.251388C19.6259 0.544281 19.6259 1.01916 19.9187 1.31205L24.1614 5.55469L19.9187 9.79733C19.6259 10.0902 19.6259 10.5651 19.9187 10.858C20.2116 11.1509 20.6865 11.1509 20.9794 10.858L25.7524 6.08502ZM1.22205 6.30469L25.222 6.30469L25.222 4.80469L1.22205 4.80469L1.22205 6.30469Z" fill="currentColor"/>
+                                </svg>
+                                </span>
+                            </button>
+                      </form>
+                    </div>
+                </div>
+            </div>
+
+            {% endfor %}
+        </ec-featured-product>
+    </div>
+</div>
+
+{% javascript %}
+    class ECFeaturedProduct extends HTMLElement {
+        constructor() {
+            super();
+        }
+    
+        connectedCallback() {
+            this.productPointers = this.querySelectorAll('.ec-featured-product__item-pointer');
+            if (this.productPointers) {
+                this.productPointers.forEach(pointer => {
+                    pointer.addEventListener('click', this.toggleModal.bind(this));
+                });
+            }
+        }
+    
+        disconnectedCallback() {
+            if (this.productPointers) {
+                this.productPointers.forEach(pointer => {
+                    pointer.removeEventListener('click', this.toggleModal.bind(this));
+                });
+            }
+        }
+    
+        toggleModal(event) {
+            const targetModalId = event.currentTarget.getAttribute('data-target');
+            const targetModal = document.getElementById(targetModalId);
+    
+            if (targetModal) {
+                targetModal.classList.toggle('active');
+                this.updateBodyClass();
+            }
+        }
+    
+        updateBodyClass() {
+            const anyModalOpen = document.querySelector('.ec-modal.active');
+            if (anyModalOpen) {
+                document.body.classList.add('open-product-modal');
+            } else {
+                document.body.classList.remove('open-product-modal');
+            }
+        }
+    }
+    
+    customElements.define('ec-featured-product', ECFeaturedProduct);
+    
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('.ec-modal-close').forEach(function (closeButton) {
+            closeButton.addEventListener('click', function (event) {
+                const modal = event.currentTarget.closest('.ec-modal');
+                if (modal) {
+                    modal.classList.remove('active');
+                    updateBodyClass();
+                }
+            });
+        });
+    
+        document.querySelectorAll('.ec-modal__add-to-cart').forEach(function (addToCartButton) {
+            addToCartButton.addEventListener('click', function (event) {
+                event.preventDefault();
+                const modal = event.currentTarget.closest('.ec-modal');
+                if (modal) {
+                    const variantId = modal.querySelector('input[name="id"]').value;
+                    const quantity = modal.querySelector('#quantity').value;
+
+                    console.log("variantId", variantId);
+                    console.log("quantity", quantity);
+    
+                    fetch('/cart/add.js', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            items: [{
+                                id: variantId,
+                                quantity: quantity
+                            }]
+                        })
+                    })
+                    .then((resp) => resp.json())
+                    .then((data) => {
+                        document.documentElement.dispatchEvent(new CustomEvent('cart:refresh', {
+                            bubbles: true
+                        }));
+                        const modal = document.querySelector('.ec-modal.active');
+                        if (modal) {
+                            modal.classList.remove('active');
+                            updateBodyClass();
+                        }
+                        setTimeout(() => {
+                            alert("Added Product To Cart Successfully"); 
+                        }, 1000);
+                    })
+                    .catch((err) => {
+                        console.error('Error: ' + err);
+                    });
+                }
+            });
+        });
+    
+        function updateBodyClass() {
+            const anyModalOpen = document.querySelector('.ec-modal.active');
+            if (anyModalOpen) {
+                document.body.classList.add('open-product-modal');
+            } else {
+                document.body.classList.remove('open-product-modal');
+            }
+        }
+    });
+{% endjavascript %}
+    
+
+
+
+    {% schema %}
+    {
+        "name": "Featured Products (EC)",
+        "class": "section",
+        "disabled_on": {
+            "groups": ["header", "footer"]
+        },
+        "blocks": [
+            {
+                "type": "product_item",
+                "name": "Product    ",
+                "settings": [
+                    {
+                        "type": "product",
+                        "id": "product",
+                        "label": "Product"
+                    },
+                    {
+                        "type": "header",
+                        "content": "Pointer Position"
+                    },
+                    {
+                        "type": "range",
+                        "id": "position_virtical",
+                        "min": 0,
+                        "max": 100,
+                        "step": 2,
+                        "unit": "%",
+                        "label": "Virtical",
+                        "default": 50
+                    },
+                    {
+                        "type": "range",
+                        "id": "position_horizontal",
+                        "min": 0,
+                        "max": 100,
+                        "step": 2,
+                        "unit": "%",
+                        "label": "Horizontal",
+                        "default": 50
+                    }
+                ]
+            }
+        ],
+        "settings": [
+            {
+                "type": "color_scheme",
+                "id": "color_scheme",
+                "label": "Section Color"
+            },
+            {
+                "type": "header",
+                "content": "Spacing"
+            },
+            {
+                "type": "range",
+                "id": "padding_top",
+                "min": 0,
+                "max": 100,
+                "step": 4,
+                "unit": "px",
+                "label": "Padding Top",
+                "default": 20
+            },
+            {
+                "type": "range",
+                "id": "padding_bottom",
+                "min": 0,
+                "max": 100,
+                "step": 4,
+                "unit": "px",
+                "label": "Padding Bottom",
+                "default": 20
+            }
+        ],
+        "presets": [
+            {
+                "name": "Featured Products (EC)"
+            }
+        ]
+    }
+{% endschema %}

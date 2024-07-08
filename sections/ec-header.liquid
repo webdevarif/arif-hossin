@@ -1,25 +1,215 @@
-<div class="ec-header">
-    <div class="ec-header__logo">
-        LOGO
-    </div>
-    <div class="ec-header__info">
-        Find the ideal gift for your loved ones.
-    </div>
-    <div class="ec-header__actions">
-        <a href="#" class="ec-button__primary">
-            <span>choose gift</span>
-            <svg width="26" height="12" viewBox="0 0 26 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M1.22205 4.80469L0.472046 4.80469L0.472046 6.30469L1.22205 6.30469L1.22205 4.80469ZM25.7524 6.08502C26.0453 5.79213 26.0453 5.31725 25.7524 5.02436L20.9794 0.251388C20.6865 -0.0415053 20.2116 -0.0415053 19.9187 0.251388C19.6259 0.544281 19.6259 1.01916 19.9187 1.31205L24.1614 5.55469L19.9187 9.79733C19.6259 10.0902 19.6259 10.5651 19.9187 10.858C20.2116 11.1509 20.6865 11.1509 20.9794 10.858L25.7524 6.08502ZM1.22205 6.30469L25.222 6.30469L25.222 4.80469L1.22205 4.80469L1.22205 6.30469Z" fill="black"/>
-            </svg>
-        </a>
-    </div>
-</div>
+{{ 'section-ec-header.css' | asset_url | stylesheet_tag }}
 
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+  }
+{%- endstyle -%}
+
+<ec-header class="ec-header color-{{ section.settings.color_scheme }} section-{{ section.id }}-padding">
+    <div class="ec-page-width">
+      <div class="ec-header__wrapper">
+        {% comment %} Toggler {% endcomment %}
+          <button class="ec-header__toggler">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </button>
+
+        {% comment %} LOGO {% endcomment %}
+        <div class="ec-header__logo">
+            {%- if section.settings.logo != blank -%}
+              {%- assign logo_alt = section.settings.logo.alt | default: shop.name | escape -%}
+                {%- assign logo_height = section.settings.logo_width | divided_by: section.settings.logo.aspect_ratio -%}
+                {% capture sizes %}(max-width: {{ section.settings.logo_width | times: 2 }}px) 50vw, {{ section.settings.logo_width }}px{% endcapture %}
+                {% capture widths %}{{ section.settings.logo_width }}, {{ section.settings.logo_width | times: 1.5 | round }}, {{ section.settings.logo_width | times: 2 }}{% endcapture %}
+                {{ section.settings.logo | image_url: width: 600 | image_tag:
+                  class: 'ec-header__heading-logo',
+                  widths: widths,
+                  height: logo_height,
+                  width: section.settings.logo_width,
+                  alt: logo_alt,
+                  sizes: sizes,
+                  preload: true
+                }}
+                {%- else -%}
+                  <span class="h2">{{ shop.name }}</span>
+                {%- endif -%}
+        </div>
+        {% comment %} Info {% endcomment %}
+        <div class="ec-header__info ec-small-hide ec-medium-hide">
+          {% if section.settings.info !=blank %}
+            {{ section.settings.info   }}
+          {% endif %}
+        </div>
+        {% comment %} Actions {% endcomment %}
+        <div class="ec-header__actions ec-small-hide ec-medium-hide">
+          {%- if section.settings.button_label != blank -%}
+            <a
+              {% if section.settings.button_link == blank %}
+                role="link" aria-disabled="true"
+              {% else %}
+                href="{{ section.settings.button_link }}"
+              {% endif %}
+              class="ec-button__primary"
+            >
+            <span>{{- section.settings.button_label | escape -}}</span>
+            <span class="ec-button__icon">
+              <svg width="26" height="12" viewBox="0 0 26 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M1.22205 4.80469L0.472046 4.80469L0.472046 6.30469L1.22205 6.30469L1.22205 4.80469ZM25.7524 6.08502C26.0453 5.79213 26.0453 5.31725 25.7524 5.02436L20.9794 0.251388C20.6865 -0.0415053 20.2116 -0.0415053 19.9187 0.251388C19.6259 0.544281 19.6259 1.01916 19.9187 1.31205L24.1614 5.55469L19.9187 9.79733C19.6259 10.0902 19.6259 10.5651 19.9187 10.858C20.2116 11.1509 20.6865 11.1509 20.9794 10.858L25.7524 6.08502ZM1.22205 6.30469L25.222 6.30469L25.222 4.80469L1.22205 4.80469L1.22205 6.30469Z" fill="currentColor"/>
+              </svg>
+            </span>
+            </a>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+      
+    {% comment %} MOBILE DRAWER {% endcomment %}
+    <div class="ec-header__drawer">
+      <div class="ec-header__drawer-wrapper color-{{ section.settings.drawer_color_scheme }}">
+          {% comment %} Info {% endcomment %}
+            {% if section.settings.info !=blank %}
+              <div class="ec-header__drawer-info">
+                {{ section.settings.info   }}
+                </div>
+              {% endif %}
+          {% comment %} Actions {% endcomment %}
+          <div class="ec-header__drawer-actions">
+            {%- if section.settings.button_label != blank -%}
+              <a
+                {% if section.settings.button_link == blank %}
+                  role="link" aria-disabled="true"
+                {% else %}
+                  href="{{ section.settings.button_link }}"
+                {% endif %}
+                class="ec-button__primary"
+              >
+              <span>{{- section.settings.button_label | escape -}}</span>
+              <span class="ec-button__icon">
+                <svg width="26" height="12" viewBox="0 0 26 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M1.22205 4.80469L0.472046 4.80469L0.472046 6.30469L1.22205 6.30469L1.22205 4.80469ZM25.7524 6.08502C26.0453 5.79213 26.0453 5.31725 25.7524 5.02436L20.9794 0.251388C20.6865 -0.0415053 20.2116 -0.0415053 19.9187 0.251388C19.6259 0.544281 19.6259 1.01916 19.9187 1.31205L24.1614 5.55469L19.9187 9.79733C19.6259 10.0902 19.6259 10.5651 19.9187 10.858C20.2116 11.1509 20.6865 11.1509 20.9794 10.858L25.7524 6.08502ZM1.22205 6.30469L25.222 6.30469L25.222 4.80469L1.22205 4.80469L1.22205 6.30469Z" fill="currentColor"/>
+                </svg>
+              </span>
+              </a>
+            {%- endif -%}
+          </div>
+        </div>
+    </div>
+</ec-header>
+
+{% javascript %}
+  class ECHeader extends HTMLElement {
+    constructor() {
+      super();
+    }
+
+    connectedCallback() {
+      this.mobileDrawerToggle = this.querySelector('.ec-header__toggler');
+      if (this.mobileDrawerToggle) {
+        this.mobileDrawerToggle.addEventListener('click', this.toggleModal.bind(this));
+      }
+    }
+
+    disconnectedCallback() {
+      if (this.mobileDrawerToggle) {
+        this.mobileDrawerToggle.removeEventListener('click', this.toggleModal.bind(this));
+      }
+    }
+    toggleModal() {
+      document.body.classList.toggle('open-drawer');
+    }
+}
+customElements.define('ec-header', ECHeader);
+
+{% endjavascript %}
 
 {% schema %} {
   "name": "Header (EC)",
+  "enabled_on": {
+    "groups": ["header"]
+  },
   "tag": "section",
   "class": "section",
-  "blocks": []
+  "blocks": [],
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Section Color"
+    },
+    {
+      "type": "color_scheme",
+      "id": "drawer_color_scheme",
+      "label": "Drawer Color"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "info",
+      "default": "Find the ideal gift for your loved ones.",
+      "label": "Info"
+    },
+    {
+      "type": "header",
+      "content": "Action Button"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "default": "Choose Gift",
+      "label": "Label"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Link"
+    },
+    {
+      "type": "range",
+      "id": "logo_width",
+      "min": 50,
+      "max": 300,
+      "step": 10,
+      "default": 100,
+      "unit": "px",
+      "label": "Logo Width"
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 20
+    }
+  ],
+  "presets": [
+    {
+      "name": "Header (EC)"
+    }
+  ]
 }
 {% endschema %}

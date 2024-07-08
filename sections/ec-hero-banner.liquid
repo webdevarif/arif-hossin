@@ -1,0 +1,231 @@
+{{ 'section-ec-hero-banner.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+.section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+}
+
+@media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+        padding-top: {{ section.settings.padding_top }}px;
+        padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+}
+{%- endstyle -%}
+
+{%- liquid
+assign sizes = '100vw'
+assign widths = '375, 550, 750, 1100, 1500, 1780, 2000, 3000, 3840'
+
+assign fetch_priority = 'auto'
+if section.index == 1
+assign fetch_priority = 'high'
+endif
+-%}
+
+<div 
+    class="ec-hero-banner color-{{ section.settings.color_scheme }}"
+    id="Banner-{{ section.id }}"
+>
+<div class="ec-hero-banner__wrapper">
+    <div class="ec-banner__content">
+        {%- for block in section.blocks -%}
+            {%- case block.type -%}
+              {%- when 'heading' -%}
+                <h1 class="ec-banner__content-heading">{{  block.settings.heading }}</h1>
+              {%- when 'description' -%}
+                <div class="ec-banner__content-description">{{  block.settings.content }}</div>
+              {%- when 'button' -%}
+                <div class="ec-banner__content-button">
+                    <a href="{{  block.settings.button_link }}" class="ec-banner__content-button ec-button__primary">
+                        <span>{{  block.settings.button_label }}</span>
+                        <span class="ec-button__icon">
+                        <svg width="26" height="12" viewBox="0 0 26 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M1.22205 4.80469L0.472046 4.80469L0.472046 6.30469L1.22205 6.30469L1.22205 4.80469ZM25.7524 6.08502C26.0453 5.79213 26.0453 5.31725 25.7524 5.02436L20.9794 0.251388C20.6865 -0.0415053 20.2116 -0.0415053 19.9187 0.251388C19.6259 0.544281 19.6259 1.01916 19.9187 1.31205L24.1614 5.55469L19.9187 9.79733C19.6259 10.0902 19.6259 10.5651 19.9187 10.858C20.2116 11.1509 20.6865 11.1509 20.9794 10.858L25.7524 6.08502ZM1.22205 6.30469L25.222 6.30469L25.222 4.80469L1.22205 4.80469L1.22205 6.30469Z" fill="currentColor"/>
+                        </svg>
+                        </span>
+                    </a>
+                </div>
+            {%- endcase -%}
+        {%- endfor -%}
+    </div>
+
+    {%- if section.settings.mobile_image == blank and section.settings.desktop_image != blank -%}
+        <div class="ec-hero-banner__media">
+            {%- liquid
+                assign image_height = section.settings.desktop_image.width | divided_by: section.settings.desktop_image.aspect_ratio
+            -%}
+            {{
+                section.settings.desktop_image
+                | image_url: width: 3840
+                | image_tag:
+                    width: section.settings.desktop_image.width,
+                    height: image_height,
+                    sizes: sizes,
+                    widths: widths,
+                    fetchpriority: fetch_priority
+            }}
+        </div>
+    {%- elsif section.settings.mobile_image != blank and section.settings.desktop_image != blank -%}
+        <div class="ec-hero-banner__media ec-small-hide ec-medium-hide">
+            {%- liquid
+            assign image_height = section.settings.desktop_image.width | divided_by: section.settings.desktop_image.aspect_ratio
+            -%}
+            {{
+                section.settings.desktop_image
+                | image_url: width: 3840
+                | image_tag:
+                    width: section.settings.desktop_image.width,
+                    height: image_height,
+                    sizes: sizes,
+                    widths: widths,
+                    fetchpriority: fetch_priority
+            }}
+        </div>
+        <div class="ec-hero-banner__media ec-large-up-hide">
+            {%- liquid
+            assign image_height = section.settings.mobile_image.width | divided_by: section.settings.mobile_image.aspect_ratio
+            -%}
+            {{
+                section.settings.mobile_image
+                | image_url: width: 3840
+                | image_tag:
+                    width: section.settings.mobile_image.width,
+                    height: image_height,
+                    sizes: sizes,
+                    widths: widths,
+                    fetchpriority: fetch_priority
+            }}
+        </div>
+    {%- elsif section.settings.mobile_image != blank and section.settings.desktop_image == blank -%}
+        <div class="ec-hero-banner__media">
+            {%- liquid
+            assign image_height = section.settings.mobile_image.width | divided_by: section.settings.mobile_image.aspect_ratio
+            -%}
+            {{
+                section.settings.mobile_image
+                | image_url: width: 3840
+                | image_tag:
+                    width: section.settings.mobile_image.width,
+                    height: image_height,
+                    sizes: sizes,
+                    widths: widths,
+                    fetchpriority: fetch_priority
+            }}
+        </div>
+    {%- else -%}
+    {{ 'hero-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
+    {%- endif -%}
+    </div>
+    {%- if section.settings.footer_text !=blank -%}
+        <div class="ec-banner__footer">
+            {{ section.settings.footer_text  }}
+        </div> 
+    {%- endif -%}
+</div>
+
+{% schema %}
+{
+    "name": "Hero Banner (EC)",
+    "class": "section",
+    "disabled_on": {
+        "groups": ["header", "footer"]
+    },
+    "settings": [
+        {
+            "type": "color_scheme",
+            "id": "color_scheme",
+            "label": "Section Color"
+        },
+        {
+            "type": "image_picker",
+            "id": "desktop_image",
+            "label": "Desktop Image"
+        },
+        {
+            "type": "image_picker",
+            "id": "mobile_image",
+            "label": "Mobile Image"
+        },
+        {
+            "type": "inline_richtext",
+            "id": "footer_text",
+            "label": "Footer Text",
+            "default": "SUSTAINABLE, ETHICALLY MADE CLOTHES IN SIZES XXS TO 6XL"
+        },
+        {
+            "type": "header",
+            "content": "Spacing"
+        },
+        {
+            "type": "range",
+            "id": "padding_top",
+            "min": 0,
+            "max": 100,
+            "step": 4,
+            "unit": "px",
+            "label": "Padding Top",
+            "default": 20
+        },
+        {
+            "type": "range",
+            "id": "padding_bottom",
+            "min": 0,
+            "max": 100,
+            "step": 4,
+            "unit": "px",
+            "label": "Padding Bottom",
+            "default": 20
+        }
+    ],
+    "blocks": [
+        {
+            "type": "heading",
+            "name": "Heading",
+            "settings": [
+                {
+                    "type": "inline_richtext",
+                    "id": "heading",
+                    "label": "Heading",
+                    "default": "The Gift Guide"
+                }
+            ]
+        },
+        {
+            "type": "description",
+            "name": "Content",
+            "settings": [
+                {
+                    "type": "richtext",
+                    "id": "content",
+                    "label": "Content",
+                    "default": "<p>Discover Joy: Your Ultimate Holiday Gift Destination. Explore our curated selection and find the perfect gifts to delight your loved ones this holiday season.</p>"
+                }
+            ]
+        },
+        {
+            "type": "button",
+            "name": "Button",
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "button_label",
+                    "label": "Button Label",
+                    "default": "Shop Now"
+                },
+                {
+                    "type": "url",
+                    "id": "button_link",
+                    "label": "Button Link"
+                }
+            ]
+        }
+    ],
+    "presets": [
+        {
+            "name": "Hero Banner(EC)"
+        }
+    ]
+}
+{% endschema %}

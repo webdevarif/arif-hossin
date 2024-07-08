@@ -1,0 +1,139 @@
+.ec-header{
+    display: block;
+    position: relative;
+}
+
+.ec-header__logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    grid-area: heading;
+}
+
+.ec-header__heading-logo {
+    height: auto;
+    max-width: 100%;
+}
+
+.ec-header__wrapper {
+    display: grid;
+    align-items: center;
+    grid-template-areas: "toggler heading";
+    grid-template-columns: auto 1fr;
+    column-gap: 2rem;
+    min-height: 25px;
+}
+
+@media (min-width: 990px){
+    .ec-header__wrapper {
+        grid-template-areas: "heading info actions";
+        grid-template-columns: auto 1fr auto;
+    }
+}
+
+.ec-header__info {
+    grid-area: info;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.ec-header__actions {
+    grid-area: actions;
+}
+
+@media (max-width: 989px){
+    .ec-header__actions,
+    .ec-header__info {
+        display: none;
+    }
+}
+
+
+/* MENU DRAWER */
+.ec-header__toggler {
+    width: 26px;
+    height: 18px;
+    position: relative;
+    transform: rotate(0);
+    transition: all 0.5s ease-in-out;
+    cursor: pointer;
+    box-shadow: none;
+    border: 0;
+    outline: none;
+    z-index: 25;
+    grid-area: toggler;
+}
+
+@media (min-width: 990px){
+    .ec-header__toggler{
+        display: none;
+    }
+}
+
+.ec-header__toggler .bar {
+    display: block;
+    left: 0;
+    position: absolute;
+    transform: rotate(0);
+    transition: all 0.25s ease-in-out;
+    width: 100%;
+    height: 2px;
+    background-color: rgba(var(--color-foreground), 1); /* Assuming bg-dark refers to a dark color */
+    opacity: 1;
+    border-radius: 9px;
+}
+
+.ec-header__toggler .bar:nth-child(1) {
+    top: 0;
+}
+
+.ec-header__toggler .bar:nth-child(2),
+.ec-header__toggler .bar:nth-child(3) {
+    top: 9px;
+}
+
+.ec-header__toggler .bar:nth-child(4) {
+    top: 18px;
+}
+
+.open-drawer .ec-header__toggler .bar:nth-child(1) {
+    top: 12px;
+    width: 0;
+    left: 50%; /* Assuming start-1/2 refers to left: 50% */
+}
+
+.open-drawer .ec-header__toggler .bar:nth-child(2) {
+    transform: rotate(45deg);
+}
+
+.open-drawer .ec-header__toggler .bar:nth-child(3) {
+    transform: rotate(-45deg);
+}
+
+.open-drawer .ec-header__toggler .bar:nth-child(4) {
+    top: 12px;
+    width: 0;
+    left: 50%; /* Assuming start-1/2 refers to left: 50% */
+}
+
+/* DRAWER */
+body:not(.open-drawer) .ec-header__drawer {
+    display: none;
+}
+.ec-header__drawer-wrapper {
+    position: absolute;
+    top: 100%;
+    width: 100%;
+    padding: 2rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+@media (min-width: 990px){
+    .ec-header__drawer {
+        display: none;
+    }
+}
