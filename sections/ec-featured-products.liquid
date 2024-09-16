@@ -26,6 +26,28 @@
     endif
 -%}
 
+
+{% comment %} let = "new-collection" {% endcomment %}
+
+
+{%- assign collection_name = 'new-collection' -%}
+
+{% for collection in collections %}
+    {% if collection.handle === collection_name %}
+
+        {% for product in collection.products %}
+            <div>{{ product.title }}</div>
+        {% endfor %}
+    {% endif %}
+
+{% endfor %}
+
+
+
+
+
+
+
 <div class="color-{{ section.settings.color_scheme }} section-{{ section.id }}-padding">
     <div class="ec-page-width">
 
@@ -143,8 +165,8 @@
     class ECFeaturedProduct extends HTMLElement {
         constructor() {
             super();
-        }
-    
+        }       
+
         connectedCallback() {
             this.productPointers = this.querySelectorAll('.ec-featured-product__item-pointer');
             if (this.productPointers) {
