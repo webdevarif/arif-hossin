@@ -4,7 +4,7 @@
 {%- assign settings = section.settings -%}
 {%- assign blocks = section.blocks -%}
 
-<section id="ee-gift-banner-{{ uid }}" class="ee-gift-banner color-{{ settings.color_scheme }} section-{{ uid }}-padding">
+<section id="ee-gift-banner-{{ uid }}" class="ee-gift-banner color-{{ settings.color_scheme }}">
     <div class="ee-gift-banner__wrapper">
         {% comment %} CONTENT IS HERE {% endcomment %}
         <div class="ee-gift-banner__content">
@@ -283,32 +283,7 @@
             "id": "footer_text",
             "label": "Footer Text",
             "default": "SUSTAINABLE, ETHICALLY MADE CLOTHES IN SIZES XXS TO 6XL"
-        },
-        {
-            "type": "header",
-            "content": "Spacing"
-        },
-        {
-            "type": "range",
-            "id": "vertical_padding_desktop",
-            "label": "Vertical padding (Desktop)",
-            "min": 0,
-            "max": 100,
-            "step": 1,
-            "unit": "px",
-            "default": 10
-        },
-        {
-            "type": "range",
-            "id": "vertical_padding_mobile",
-            "label": "Vertical padding (Mobile)",
-            "min": 0,
-            "max": 100,
-            "step": 1,
-            "unit": "px",
-            "default": 20
-        }
-    
+        }    
     ],
     "presets": [
         {
