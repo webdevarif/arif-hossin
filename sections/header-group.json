@@ -83,9 +83,26 @@
         "enable_transparent_header_collection": false,
         "collection_color_scheme": "default"
       }
+    },
+    "ee_header_tEKNyk": {
+      "type": "ee-header",
+      "name": "EE Header",
+      "settings": {
+        "color_scheme": "scheme-2",
+        "logo": "shopify://shop_images/Group_1000007777.svg",
+        "logo_width": 150,
+        "logo_text": "Tisso Vison",
+        "text": "Find the ideal gift for your loved ones.",
+        "button_text": "Choose Gift",
+        "button_link": "#",
+        "enable_cart": false,
+        "vertical_padding_desktop": 10,
+        "vertical_padding_mobile": 20
+      }
     }
   },
   "order": [
-    "header_section"
+    "header_section",
+    "ee_header_tEKNyk"
   ]
 }
