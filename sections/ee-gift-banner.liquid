@@ -1,0 +1,340 @@
+{% comment %} GIFT BANNER SECTION {% endcomment %}
+
+{%- assign uid = section.id -%}
+{%- assign settings = section.settings -%}
+{%- assign blocks = section.blocks -%}
+
+<section id="ee-gift-banner-{{ uid }}" class="ee-gift-banner color-{{ settings.color_scheme }} section-{{ uid }}-padding">
+    <div class="ee-gift-banner__wrapper">
+        {% comment %} CONTENT IS HERE {% endcomment %}
+        <div class="ee-gift-banner__content">
+            {%- for block in blocks -%}
+                {%- case block.type -%}
+                    {%- when 'heading' -%}
+                        {% if block.settings.heading != blank %}
+                        <{{ block.settings.tag }} class="ee-gift-banner__heading">{{ block.settings.heading }}</{{ block.settings.tag }}>
+                        {% endif %}
+                    {%- when 'content' -%}
+                        {% if block.settings.content != blank %}
+                        <div class="ee-gift-banner__text">{{ block.settings.content }}</div>
+                        {% endif %}
+                    {%- when 'button' -%}
+                        {% if block.settings.button_label != blank and block.settings.button_url != blank %}
+                        <div class="ee-gift-banner__button-wrapper">
+                            <a href="{{ block.settings.button_url }}" class="ee-gift-banner__button ee-btn">
+                                {{ block.settings.button_label }}
+                                <svg width="26" height="12" viewBox="0 0 26 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M0.75 4.77298L7.37629e-08 4.77298L-7.37629e-08 6.27298L0.75 6.27298L0.75 4.77298ZM25.2803 6.05331C25.5732 5.76042 25.5732 5.28554 25.2803 4.99265L20.5074 0.21968C20.2145 -0.073213 19.7396 -0.0732131 19.4467 0.21968C19.1538 0.512574 19.1538 0.987447 19.4467 1.28034L23.6893 5.52298L19.4467 9.76562C19.1538 10.0585 19.1538 10.5334 19.4467 10.8263C19.7396 11.1192 20.2145 11.1192 20.5074 10.8263L25.2803 6.05331ZM0.75 6.27298L24.75 6.27298L24.75 4.77298L0.75 4.77298L0.75 6.27298Z" fill="currentColor"/>
+                                </svg>
+                            </a>
+                        </div>
+                        {% endif %}
+                {%- endcase -%}
+            {%- endfor -%}
+        </div>
+
+        {% comment %} SVG BACKGROUND BANNER {% endcomment %}
+         {%- if settings.desktop_image == blank and section.settings.mobile_image != blank -%}
+         <div class="ee-gift-banner__media">
+            {% liquid 
+                assign image_height = settings.desktop_image.width | divided_by: settings.desktop_image.aspect_ratio
+            %}
+            {{
+                settings.desktop_image
+                |  image_url: width: settings.desktop_image.width
+                |  image_tag: class: 'ee-gift-banner__image', width: settings.desktop_image.width, height: image_height
+            }}
+         </div>
+         {%- elsif settings.mobile_image != blank and section.settings.desktop_image !=blank -%}
+            <div class="ee-gift-banner__media ee-small-hide ee-medium-hide">
+                {% liquid 
+                    assign image_height = settings.desktop_image.width | divided_by: settings.desktop_image.aspect_ratio
+                %}
+                {{
+                    settings.desktop_image
+                    |  image_url: width: settings.desktop_image.width
+                    |  image_tag: class: 'ee-gift-banner__image', width: settings.desktop_image.width, height: image_height
+                }}
+            </div>
+            <div class="ee-gift-banner__media ee-large-hide">
+                {% liquid 
+                    assign image_height = settings.mobile_image.width | divided_by: settings.mobile_image.aspect_ratio
+                %}
+                {{
+                    settings.mobile_image
+                    |  image_url: width: settings.desktop_image.width
+                    |  image_tag: class: 'ee-gift-banner__image', width: settings.desktop_image.width, height: image_height
+                }}
+            </div>
+         {%- elsif settings.mobile_image != blank -%}
+            <div class="ee-gift-banner__media">
+                {% liquid 
+                    assign image_height = settings.mobile_image.width | divided_by: settings.mobile_image.aspect_ratio
+                %}
+                {{
+                    settings.mobile_image
+                    |  image_url: width: settings.mobile_image.width
+                    |  image_tag: class: 'ee-gift-banner__image', width: settings.mobile_image.width, height: image_height
+                }}
+            </div>
+         {%- else -%}
+            <div class="ee-gift-banner__media">
+                <!-- No image selected -->
+                 {{ 'hero-apparel-1' | placeholder_svg_tag: 'placeholder-svg' }}
+            </div>
+         {%- endif -%}
+    </div>
+    {%- if settings.footer_text != blank -%}
+    <div class="ee-gift-banner__footer">
+        <div class="ee-container"><p>{{ settings.footer_text }}</p></div>
+    </div>
+    {%- endif -%}
+
+</section>
+
+
+{% style %}
+    .ee-gift-banner__content {
+        display: flex;
+        flex-direction: column;
+        gap: 50px;
+    }
+
+    .ee-gift-banner__wrapper {
+        position: relative;
+    }
+
+    .ee-gift-banner__heading {
+        margin: 0;
+        font-size: clamp(1.875rem, 0.995rem + 3.756vw, 4.375rem);
+        font-weight: 500;
+        letter-spacing: 0;
+        color: var(--color-foreground-heading);
+        font-family: var(--ff-primary);
+    }
+    .ee-gift-banner__text {
+        font-size: clamp(1rem, 0.912rem + 0.376vw, 1.25rem);
+        line-height: 1.5;
+        font-weight: 400;
+    }
+    .ee-gift-banner__footer{
+        text-align: center;
+        background-color: #F5F5F5;
+        padding-block: 10px;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 1.2;
+    }
+
+    .ee-gift-banner__button{
+        padding-inline-end: 22px;
+        gap: 20px;
+    }
+    @media screen and (min-width: 990px) {
+        .ee-gift-banner__content {
+            bottom: 0px;
+            left: 0;
+            position: absolute;
+            max-width: min(670px, 45vw);
+            padding-inline-start: 3.5vw;
+            padding-block: 4.5rem;
+        }
+    }
+    @media screen and (max-width: 989.98px) {
+        .ee-gift-banner__content {
+            padding-inline: 1.5rem;
+            padding-block: 3rem 1.5rem;
+            align-items: center;
+            text-align: center;
+        }
+    }
+
+    @media screen and (min-width: 750px) and (max-width: 1320px) {
+        .ee-gift-banner__content {
+            gap: 30px;
+            padding-block: 2.5rem;
+            justify-content: center;
+        }
+    }
+    @media screen and (max-width: 750px) {
+        .ee-gift-banner__content {
+            position: relative;
+            gap: 20px;
+            padding-block: 2rem;
+        }
+    }
+{% endstyle %}
+
+
+{% schema %}
+{
+    "name": "EE Gift Banner",
+    "tag": "section",
+    "class": "ee-gift-banner",
+    "disabled_on": {
+        "groups": ["header", "footer"]
+    },
+    "blocks": [
+        {
+            "type": "heading",
+            "name": "Heading",
+            "settings": [
+                {
+                    "type": "inline_richtext",
+                    "id": "heading",
+                    "label": "Heading",
+                    "default": "The Gift Guide"
+                },
+                {
+                    "type": "select",
+                    "id": "tag",
+                    "label": "Tag",
+                    "options": [
+                        {
+                            "value": "h1",
+                            "label": "H1"
+                        },
+                        {
+                            "value": "h2",
+                            "label": "H2"
+                        },
+                        {
+                            "value": "h3",
+                            "label": "H3"
+                        },
+                        {
+                            "value": "h4",
+                            "label": "H4"
+                        },
+                        {
+                            "value": "h5",
+                            "label": "H5"
+                        },
+                        {
+                            "value": "h6",
+                            "label": "H6"
+                        }
+                    ],
+                    "default": "h2"
+                }
+            ]
+        },
+        {
+            "type": "content",
+            "name": "Content",
+            "settings": [
+                {
+                    "type": "richtext",
+                    "id": "content",
+                    "label": "Content",
+                    "default": "<p>Discover Joy: Your Ultimate Holiday Gift Destination. Explore our curated selection and find the perfect gifts to delight your loved ones this holiday season.</p>"
+                }
+            ]
+        },
+        {
+            "type": "button",
+            "name": "Button",
+            "settings": [
+                {
+                    "type": "text",
+                    "id": "button_label",
+                    "label": "Button Label",
+                    "default": "Shop Now"
+                },
+                {
+                    "type": "url",
+                    "id": "button_url",
+                    "label": "Button URL"
+                }
+            ]
+        }
+    ],
+    "settings": [
+        {
+            "type": "header",
+            "content": "Appearance"
+        },
+        {
+            "type": "color_scheme",
+            "id": "color_scheme",
+            "label": "Color scheme",
+            "default": "scheme-1"
+        },
+        {
+            "type": "header",
+            "content": "Banner"
+        },
+        {
+            "type": "image_picker",
+            "id": "desktop_image",
+            "label": "Desktop Image"
+        },
+        {
+            "type": "image_picker",
+            "id": "mobile_image",
+            "label": "Mobile Image"
+        },
+        {
+            "type": "header",
+            "content": "Content"
+        },
+        {
+            "type": "inline_richtext",
+            "id": "footer_text",
+            "label": "Footer Text",
+            "default": "SUSTAINABLE, ETHICALLY MADE CLOTHES IN SIZES XXS TO 6XL"
+        },
+        {
+            "type": "header",
+            "content": "Spacing"
+        },
+        {
+            "type": "range",
+            "id": "vertical_padding_desktop",
+            "label": "Vertical padding (Desktop)",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "px",
+            "default": 10
+        },
+        {
+            "type": "range",
+            "id": "vertical_padding_mobile",
+            "label": "Vertical padding (Mobile)",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "px",
+            "default": 20
+        }
+    
+    ],
+    "presets": [
+        {
+            "name": "EE Gift Banner",
+            "blocks": [
+                {
+                    "type": "heading",
+                    "settings": {
+                        "heading": "The Gift Guide"
+                    }
+                }, 
+                {
+                    "type": "content",
+                    "settings": {
+                        "content": "<p>Discover Joy: Your Ultimate Holiday Gift Destination. Explore our curated selection and find the perfect gifts to delight your loved ones this holiday season.</p>"
+                    }
+                },
+                {
+                    "type": "button",
+                    "settings": {
+                        "button_label": "Shop Now",
+                        "button_url": "#"
+                    }
+                }
+            ]
+        }
+    ]
+}
+{% endschema %}
