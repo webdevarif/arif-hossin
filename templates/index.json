@@ -43,13 +43,80 @@
         "color_scheme": "",
         "desktop_image": "shopify://shop_images/Group_1000008197.png",
         "mobile_image": "shopify://shop_images/Frame.png",
-        "footer_text": "SUSTAINABLE, ETHICALLY MADE CLOTHES IN SIZES XXS TO 6XL",
-        "vertical_padding_desktop": 10,
-        "vertical_padding_mobile": 20
+        "footer_text": "SUSTAINABLE, ETHICALLY MADE CLOTHES IN SIZES XXS TO 6XL"
+      }
+    },
+    "ee_featured_products_grid_3QUwxE": {
+      "type": "ee-featured-products-grid",
+      "blocks": {
+        "product_6mmAJ6": {
+          "type": "product",
+          "settings": {
+            "product": "black-leather-bag",
+            "position_x": 56,
+            "position_y": 54
+          }
+        },
+        "product_79ibqx": {
+          "type": "product",
+          "settings": {
+            "product": "blue-silk-tuxedo",
+            "position_x": 81,
+            "position_y": 50
+          }
+        },
+        "product_RyTFXM": {
+          "type": "product",
+          "settings": {
+            "product": "chequered-red-shirt",
+            "position_x": 58,
+            "position_y": 18
+          }
+        },
+        "product_RrRDbW": {
+          "type": "product",
+          "settings": {
+            "product": "classic-leather-jacket",
+            "position_x": 67,
+            "position_y": 16
+          }
+        },
+        "product_fTHNVD": {
+          "type": "product",
+          "settings": {
+            "product": "classic-varsity-top",
+            "position_x": 49,
+            "position_y": 23
+          }
+        },
+        "product_Ggfnx7": {
+          "type": "product",
+          "settings": {
+            "product": "dark-denim-top",
+            "position_x": 73,
+            "position_y": 38
+          }
+        }
+      },
+      "block_order": [
+        "product_6mmAJ6",
+        "product_79ibqx",
+        "product_RyTFXM",
+        "product_RrRDbW",
+        "product_fTHNVD",
+        "product_Ggfnx7"
+      ],
+      "name": "EE Featured Products",
+      "settings": {
+        "section_title": "Tisso vison in the wild",
+        "color_scheme": "scheme-1",
+        "vertical_padding_desktop": 90,
+        "vertical_padding_mobile": 40
       }
     }
   },
   "order": [
-    "ee_gift_banner_rTLR3M"
+    "ee_gift_banner_rTLR3M",
+    "ee_featured_products_grid_3QUwxE"
   ]
 }
