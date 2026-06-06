@@ -1,0 +1,281 @@
+
+{% comment %} HEADER SECTION {% endcomment %}
+
+{%- assign uid = section.id -%}
+{%- assign settings = section.settings -%}
+
+<div id="ee-header-{{ uid }}" class="ee-header color-{{ settings.color_scheme }} section-{{ uid }}-padding">
+    <div class="ee-container">
+        <div class="ee-header__wrapper">
+            {% comment %} TOGGLER FOR MOBILE {% endcomment %}
+            <button class="ee-header__toggler" type="button" aria-label="Toggle menu">
+                <span class="ee-header__toggler-bar"></span>
+                <span class="ee-header__toggler-bar"></span>
+                <span class="ee-header__toggler-bar"></span>
+            </button>
+
+            {% comment %} LOGO {% endcomment %}
+            <div class="ee-header__logo" 
+                {% if settings.logo_width != blank %}style="--ee-header-logo-width: {{ settings.logo_width }}px;"{% endif %}
+            >
+                {%- if settings.logo != blank -%}
+                    {{ settings.logo | image_url: width: settings.logo.width | alt: settings.logo.alt | default: shop.name | image_tag: class: 'ee-header__logo-image' | link_to: routes.root_url }}
+                {%- elsif settings.logo_text != blank -%}
+                    {{ settings.logo_text }}
+                {%- else -%}
+                    {{ shop.name }}
+                {%- endif -%}
+            </div>
+
+            {% comment %} CENTER TEXT {% endcomment %}
+            <div class="ee-header__text">
+                {%- if settings.text != blank -%}
+                    {{ settings.text }}
+                {%- endif -%}
+            </div>
+
+            {% comment %} ACTIONS {% endcomment %}
+            <div class="ee-header__actions">
+                {%- if settings.button_text != blank -%}
+                    <a {% if settings.button_link != blank %}href="{{ settings.button_link }}" {% else %}disabled{% endif %} class="ee-btn ee-header--button-gift">
+                        {{ settings.button_text }}
+                        <svg width="26" height="12" viewBox="0 0 26 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M0.75 4.77298L7.37629e-08 4.77298L-7.37629e-08 6.27298L0.75 6.27298L0.75 4.77298ZM25.2803 6.05331C25.5732 5.76042 25.5732 5.28554 25.2803 4.99265L20.5074 0.21968C20.2145 -0.073213 19.7396 -0.0732131 19.4467 0.21968C19.1538 0.512574 19.1538 0.987447 19.4467 1.28034L23.6893 5.52298L19.4467 9.76562C19.1538 10.0585 19.1538 10.5334 19.4467 10.8263C19.7396 11.1192 20.2145 11.1192 20.5074 10.8263L25.2803 6.05331ZM0.75 6.27298L24.75 6.27298L24.75 4.77298L0.75 4.77298L0.75 6.27298Z" fill="currentColor"/>
+                        </svg>
+                    </a>
+                {%- endif -%}
+                {%- if settings.enable_cart -%}
+                    <a href="{{ routes.cart_url }}" class="ee-header__action-icon">
+                        Cart {%- if cart.item_count > 0 -%}<span class="ee-header__cart-count">{{ cart.item_count }}</span>{%- endif -%}
+                    </a>
+                {%- endif -%}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% style %}
+    .section-{{ uid }}-padding {
+        --padding-top: {{ section.settings.vertical_padding_desktop }}px;
+        --padding-bottom: {{ section.settings.vertical_padding_desktop }}px;
+        padding-block: var(--padding-top) var(--padding-bottom);
+    }
+    .ee-header{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .ee-header__logo-image{
+        width: revert-layer;
+        max-width: var(--ee-header-logo-width);
+    } 
+    .ee-header__wrapper {
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        align-items: center;
+        gap: 16px;
+    }
+
+    /* Header Text */
+    .ee-header__text {
+        margin: 0;
+        text-align: center;
+        font-size: 16px;
+        line-height: 1.5;
+        letter-spacing: 0;
+        font-weight: 400;
+    }
+
+    /* Action Buttons */
+    .ee-header--button-gift{
+        padding-inline-end: 22px;
+        gap: 20px;
+    }
+
+    /* Hamburger Menu */
+    .ee-header__toggler {
+        display: none; 
+        flex-direction: column;
+        gap: 4px;
+        width: 28px;
+        background-color: transparent;
+        border: 0px;
+        cursor: pointer;
+        padding: 4px;
+    }
+
+    .ee-header__wrapper.is-open .ee-header__toggler-bar:nth-child(1) {
+        transform: translateY(6px) rotate(45deg);
+    }
+    .ee-header__wrapper.is-open .ee-header__toggler-bar:nth-child(2) {
+        opacity: 0;
+    }
+    .ee-header__wrapper.is-open .ee-header__toggler-bar:nth-child(3) {
+        transform: translateY(-6px) rotate(-45deg);
+    }
+    .ee-header__toggler-bar {
+        display: block;
+        height: 2px;
+        width: 100%;
+        background: #000;
+        transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+
+
+    
+    /* RESPONSIVE MOBILE (768px) */
+    @media (max-width: 768px) {
+        .section-{{ uid }}-padding {
+            --padding-top: {{ section.settings.vertical_padding_mobile }}px;
+            --padding-bottom: {{ section.settings.vertical_padding_mobile }}px;
+        }
+
+        .ee-header__text, .ee-header--button-gift, .ee-header__actions{
+            display: none;
+            grid-column: 1 / -1;
+        }
+        .ee-header__toggler {
+            display: flex;
+        }
+        .ee-header__wrapper {
+            grid-template-columns: auto 1fr;
+            justify-items: center;
+            row-gap: 20px;
+        }
+        .ee-header__wrapper.is-open .ee-header__text, 
+        .ee-header__wrapper.is-open .ee-header__actions { 
+            display: block;
+        }
+        .ee-header__wrapper.is-open .ee-header--button-gift { 
+            display: inline-flex;
+            justify-content: center;
+        }
+    }
+{% endstyle %}
+
+<script>
+    (function (){
+        var header = document.getElementById('ee-header-{{ uid }}');
+        if (!header) return;
+        var toggler = header.querySelector('.ee-header__toggler');
+        var wrapper = header.querySelector('.ee-header__wrapper');
+        if (!toggler || !wrapper) return;
+
+        toggler.addEventListener('click', function(){
+            var open = wrapper.classList.toggle('is-open');
+            toggler.setAttribute('aria-expanded', open.toString() ? 'true' : 'false');
+            toggler.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+        })
+                
+    })();
+</script>
+
+
+{% schema %}
+{
+    "name": "EE Header",
+    "enabled_on": {
+        "groups": ["header"]
+    },
+    "tag": "header",
+    "class": "ee-header-section",
+    "blocks": [],
+    "settings": [
+        {
+            "type": "header",
+            "content": "Appearance"
+        },
+        {
+            "type": "color_scheme",
+            "id": "color_scheme",
+            "label": "Color scheme",
+            "default": "scheme-1"
+        },
+        {
+            "type": "header",
+            "content": "Logo"
+        },
+        {
+            "type": "image_picker",
+            "id": "logo",
+            "label": "Logo"
+        },
+        {
+            "type": "range",
+            "id": "logo_width",
+            "label": "Logo Width",
+            "min": 0,
+            "max": 200,
+            "step": 10,
+            "unit": "px",
+            "default": 150
+        },
+        {
+            "type": "text",
+            "id": "logo_text",
+            "label": "Logo Text"
+        },
+        {
+            "type": "header",
+            "content": "Center Text"
+        },
+        {
+            "type": "inline_richtext",
+            "id": "text",
+            "label": "Text",
+            "default": "Find the ideal gift for your loved ones."
+        },
+        {
+            "type": "header",
+            "content": "Actions"
+        },
+        {
+            "type": "text",
+            "id": "button_text",
+            "label": "Button text",
+            "default": "Choose Gift"
+        },
+        {
+            "type": "url",
+            "id": "button_link",
+            "label": "Button link"
+        },
+        {
+            "type": "checkbox",
+            "id": "enable_cart",
+            "label": "Show Cart",
+            "default": true
+        },
+        {
+            "type": "header",
+            "content": "Spacing"
+        },
+        {
+            "type": "range",
+            "id": "vertical_padding_desktop",
+            "label": "Vertical padding (Desktop)",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "px",
+            "default": 10
+        },
+        {
+            "type": "range",
+            "id": "vertical_padding_mobile",
+            "label": "Vertical padding (Mobile)",
+            "min": 0,
+            "max": 100,
+            "step": 1,
+            "unit": "px",
+            "default": 20
+        }
+    ],
+    "presets": [
+        {
+            "name": "EE Header"
+        }
+    ]
+}
+{% endschema %}
