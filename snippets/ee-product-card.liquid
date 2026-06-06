@@ -1,0 +1,66 @@
+{%- if card_product != blank -%}
+{%- assign product_object = all_products[card_product.handle] -%}
+
+<div class="ee-featured-products__item" data-product-id="{{ card_product.id }}"
+    style="
+        --ee-pointer-position-x: {{ positionX }}%;
+        --ee-pointer-position-y: {{ positionY }}%;
+    "
+    {{ block_attrs }}
+>
+    {{ card_product.featured_image | image_url: width: 400 | image_tag: alt: card_product.title }}
+
+    <button type="button" aria-label="Quick product: {{ card_product.title | escape }}" class="ee-featured-products__pointer">
+        <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="11" cy="11" r="11" fill="#F8F8F8" fill-opacity="0.9"/>
+            <path d="M11.3457 7.04175V15.5033" stroke="black" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="round"/>
+            <path d="M7.11523 11.2725H15.5768" stroke="black" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="round"/>
+        </svg>
+    </button>
+
+    <script type="application/json" class="ee-product-data-json">
+        {
+            "id": {{ card_product.id | json }},
+            "handle": {{ card_product.handle | json }},
+            "title": {{ card_product.title | json }},
+            "image": {{ card_product.featured_image | json }},
+            "price": {{ card_product.price | json }},
+            "compare_at_price": {{ card_product.compare_at_price | json }},
+            "description": {{ card_product.description | strip_html | json }},
+            "url": {{ card_product.url | json }},
+            "available": {{ card_product.available | json }},
+
+            "selectedVariant": {
+                "id": {{ card_product.selected_or_first_available_variant.id | json }},
+                "title": {{ card_product.selected_or_first_available_variant.title | json }},
+                "price": {{ card_product.selected_or_first_available_variant.price | json }},
+                "compare_at_price": {{ card_product.selected_or_first_available_variant.compare_at_price | json }},
+                "available": {{ card_product.selected_or_first_available_variant.available | json }},
+                "options": {{ card_product.selected_or_first_available_variant.options | json }}
+            },
+
+            "variants": {{ card_product.variants | json }},
+
+            "options": [
+                {% for product_option in card_product.options_with_values %}
+                {
+                    "name": {{ product_option.name | json }},
+                    "position": {{ product_option.position | json }},
+                    "values": [
+                    {% for option_value in product_option.values %}
+                        {
+                        "id": {{ option_value.id | json }},
+                        "name": {{ option_value.name | json }},
+                        "available": {{ option_value.available | json }},
+                        "selected": {{ option_value.selected | json }},
+                        "variant_id": {{ option_value.variant.id | json }}
+                        }{% unless forloop.last %},{% endunless %}
+                    {% endfor %}
+                    ]
+                }{% unless forloop.last %},{% endunless %}
+                {% endfor %}
+            ]
+        }
+        </script>
+</div>
+{%- endif -%}
